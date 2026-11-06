@@ -1,0 +1,2868 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>API Index</title>
+    <link type="text/css" rel="stylesheet" href="assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="api-index"><a class="header-link" href="#api-index"></a>API Index</h1>
+<h2 id="changelog"><a class="header-link" href="#changelog"></a>Changelog</h2>
+<h3 id="2026-03-24"><a class="header-link" href="#2026-03-24"></a>2026-03-24</h3>
+<h4 id="new-features"><a class="header-link" href="#new-features"></a>New Features</h4>
+<ul class="list">
+<li><strong>Hashrate distribution list filters</strong>: <code>/v2/hash_rate/distribution/orders</code> and <code>/v2/hash_rate/distribution/settlements</code> now accept optional <code>start_date</code> and <code>end_date</code> (half-open range <code>[start_date, end_date)</code> in UTC; 13-digit values treated as milliseconds) and optional <code>external_id</code> (hex, same as when creating a distribution).</li>
+</ul>
+<hr>
+<h3 id="2026-03-20"><a class="header-link" href="#2026-03-20"></a>2026-03-20</h3>
+<h4 id="new-features-1"><a class="header-link" href="#new-features-1"></a>New Features</h4>
+<ul class="list">
+<li><strong>Wallet change history API</strong>: Added <code>/v2/mining_user/wallet/history</code> to query wallet address change history for one mining account across multiple currencies, including address and changed time.</li>
+</ul>
+<hr>
+<h3 id="2026-01-19"><a class="header-link" href="#2026-01-19"></a>2026-01-19</h3>
+<h4 id="new-features-2"><a class="header-link" href="#new-features-2"></a>New Features</h4>
+<ul class="list">
+<li><strong>Hashrate distribution enhancement</strong>: Added <code>external_id</code> parameter to <code>/v2/hash_rate/distribute</code> endpoint<ul class="list">
+<li><code>external_id</code>: An optional hex string for custom tracking or idempotency check by the caller.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2025-09-23"><a class="header-link" href="#2025-09-23"></a>2025-09-23</h3>
+<h4 id="new-features-3"><a class="header-link" href="#new-features-3"></a>New Features</h4>
+<ul class="list">
+<li><strong>Enhanced Asset Query Interface</strong>: Added two optional parameters to <code>/v2/assets/balance</code> endpoint<ul class="list">
+<li><code>calculate_estimated_income</code>: Whether to calculate estimated income</li>
+<li><code>historical_total_income_outcome</code>: Whether to calculate historical total income/outcome</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul class="list">
+<li><a href="#account-management">Account Management</a><ul class="list">
+<li><a href="#fetch-account-information">Fetch account information</a></li>
+<li><a href="#add-new-mining-account">Add new mining account</a></li>
+<li><a href="#list-all-mining-accounts">List all mining accounts</a></li>
+<li><a href="#modify-wallet-address">Modify wallet address</a></li>
+<li><a href="#wallet-address-change-history">Wallet address change history</a></li>
+<li><a href="#create-read-only-page">Create read-only page</a></li>
+<li><a href="#delete-read-only-page">Delete read-only page</a></li>
+<li><a href="#manual-withdrawal">Manual withdrawal</a></li>
+<li><a href="#available-data-for-manual-withdrawal-with-specified-amount">Available data for manual withdrawal with specified amount</a></li>
+<li><a href="#manual-withdrawal-with-specified-amount">Manual withdrawal with specified amount</a></li>
+<li><a href="#pause-payment">Pause payment</a></li>
+<li><a href="#resume-payment">Resume payment</a></li>
+<li><a href="#change-payout-threshold">Change payout threshold</a></li>
+<li><a href="#change-payout-threshold-value">Change payout threshold value</a></li>
+</ul>
+</li>
+<li><a href="#assets-module">Assets module</a><ul class="list">
+<li><a href="#fetch-current-user's-asset-details">Fetch current user&#39;s asset details</a></li>
+<li><a href="#bill-list">Bill list</a></li>
+<li><a href="#settlement-mode">Settlement mode</a></li>
+</ul>
+</li>
+<li><a href="#hashrate-module">Hashrate Module</a><ul class="list">
+<li><a href="#hashrate-information">Hashrate information</a></li>
+<li><a href="#hashrate-information-of-multiple-account">Hashrate information of multiple account</a></li>
+<li><a href="#hashrate-historical-data-(time-serial-data)">Hashrate historical data (time serial data)</a></li>
+<li><a href="#worker-list">Worker list</a></li>
+<li><a href="#hashrate-historical-data-(time-serial-data)-of-worker">Hashrate historical data (time serial data) of worker</a></li>
+</ul>
+</li>
+<li><a href="#hashrate-distribution">Hashrate Distribution</a><ul class="list">
+<li><a href="#hashrate-distribution-information">Hashrate distribution information</a></li>
+<li><a href="#list-of-all-orders-of-hashrate-distribution">List of all orders of hashrate distribution</a></li>
+<li><a href="#list-of-all-settlements-of-hashrate-distribution">List of all settlements of hashrate distribution</a></li>
+<li><a href="#distribute-hashrate-to-an-f2pool-account">Distribute hashrate to an f2pool account</a></li>
+<li><a href="#terminate-hashrate-distribution-order">Terminate hashrate distribution order</a></li>
+</ul>
+</li>
+<li><a href="#revenue-distribution">Revenue Distribution</a><ul class="list">
+<li><a href="#get-revenue-distribution-information">Get revenue distribution information</a></li>
+<li><a href="#distribute-revenue-to-an-f2pool-account">Distribute revenue to an f2pool account</a></li>
+<li><a href="#distribute-revenue-to-a-wallet-address">Distribute revenue to a wallet address</a></li>
+<li><a href="#terminate-revenue-distribution-record">Terminate revenue distribution record</a></li>
+</ul>
+</li>
+<li><a href="#pool-information">Pool Information</a><ul class="list">
+<li><a href="#blocks-list">Blocks list</a></li>
+<li><a href="#blocks-list">Blocks list</a></li>
+<li><a href="#mining-reward-details-of-user-pplns">mining reward details of user pplns</a></li>
+</ul>
+</li>
+</ul>
+<p>f2pool API supports HTTPS requests to access the mining pool service, which includes support for subaccount management, wallet management, payment information, hashrate, workers and other query functions.</p>
+<h3 id="how-to-get-the-api-token"><a class="header-link" href="#how-to-get-the-api-token"></a>How to get the API token</h3>
+<p>You can activate the API service and get the API token through the website, or contact f2pool customer service agents.</p>
+<h3 id="api-authentication"><a class="header-link" href="#api-authentication"></a>API authentication</h3>
+<p><code>F2P-API-secret</code> <br>
+Fill the header with API token on the right field to pass verification.
+Note that we only accept POST requests with <code>application/json</code> <br></p>
+<p>For example</p>
+<pre class="hljs"><code>curl <span class="hljs-params">--request</span> POST {url}
+<span class="hljs-params">--header</span> &#x27;Content-Type: application/json&#x27;
+<span class="hljs-params">--header</span> &#x27;F2P-API-SECRET: {token}&#x27;
+<span class="hljs-params">--data-raw</span> &#x27;{
+<span class="hljs-string">&quot;currency&quot;</span>: <span class="hljs-string">&quot;bitcoin&quot;</span>,
+<span class="hljs-string">&quot;user_name&quot;</span>: <span class="hljs-string">&quot;xxx&quot;</span>,
+<span class="hljs-string">...</span>
+}&#x27;</code></pre><p>{url} is <code>https://api.f2pool.com/v2/{request_name}</code>
+You will get the following uniform formatted data if there is a error</p>
+<pre class="hljs"><code>{
+<span class="hljs-string">&quot;code&quot;</span>: {ERR_CODE},
+<span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">&quot;error_type: description&quot;</span>
+}</code></pre><p>The available values of the &#39;currency&#39; field in the API:</p>
+<pre class="hljs"><code><span class="hljs-attribute">bitcoin</span>,bitcoin-cash,conflux,dash,decred,digibyte-qubit,digibyte-scrypt,digibyte-sha<span class="hljs-number">256</span>d,digibyte-skein,dogecoin,elacoin,ethereum,ethereum-classic,handshake,hathor,kadena,litecoin,nervos,nmccoin,qitmeer-meer,raven,siacoin-new,verge-blake<span class="hljs-number">2</span>s,verge-groestl,verge-lyra,verge-scrypt,verge-x<span class="hljs-number">17</span>,xaya,zcash,zen</code></pre><p>The hashrate module currently supports only:</p>
+<pre class="hljs"><code><span class="hljs-built_in">bitcoin,</span>bitcoin-cash,litecoin</code></pre><p>The hashrate distribution module currently supports only:</p>
+<pre class="hljs"><code><span class="hljs-attribute">bitcoin</span></code></pre><h1 id="account-management"><a class="header-link" href="#account-management"></a>Account Management</h1>
+<p>Public Messages:</p>
+<h3 id="readonlypage"><a class="header-link" href="#readonlypage"></a>ReadOnlyPage</h3>
+<p>Read-only page data</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"><code>/mining-user-{currency}/{key}</code> is the URI of the read-only page</td>
+</tr>
+<tr>
+<td align="left">permissions</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Different permissions should be separated by comma<br>* 1 means it has permission to view the mining hashrate and worker list<br>* 2 means it has permission to view the revenue data, including the payment information<br>* 3 means it has permission to view the revenue data without payment information</td>
+</tr>
+<tr>
+<td align="left">page_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description of the read-only page</td>
+</tr>
+</tbody></table>
+<h3 id="wallet"><a class="header-link" href="#wallet"></a>Wallet</h3>
+<p>Wallet data</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Payout threshold</td>
+</tr>
+</tbody></table>
+<h3 id="extraentry"><a class="header-link" href="#extraentry"></a>ExtraEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="mininguserinfo"><a class="header-link" href="#mininguserinfo"></a>MiningUserInfo</h3>
+<p>Account data</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">Read-only page data</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">Wallet address information of all currencies</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description of the account</td>
+</tr>
+</tbody></table>
+<h3 id="walletparams"><a class="header-link" href="#walletparams"></a>WalletParams</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">Wallet address configuration list</td>
+</tr>
+</tbody></table>
+<h3 id="resultsentry"><a class="header-link" href="#resultsentry"></a>ResultsEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="walletresp"><a class="header-link" href="#walletresp"></a>WalletResp</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">result</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">true/false</td>
+</tr>
+<tr>
+<td align="left">msg</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Error message</td>
+</tr>
+</tbody></table>
+<h3 id="mininguserwalletresp"><a class="header-link" href="#mininguserwalletresp"></a>MiningUserWalletResp</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">wallet_result</td>
+<td align="left"><a href="#walletresp">WalletResp</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="resultsentry-1"><a class="header-link" href="#resultsentry-1"></a>ResultsEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left"><a href="#mininguserwalletresp">MiningUserWalletResp</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="walletchangehistoryitem"><a class="header-link" href="#walletchangehistoryitem"></a>WalletChangeHistoryItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address after change</td>
+</tr>
+<tr>
+<td align="left">changed_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Change time as Unix timestamp in seconds</td>
+</tr>
+</tbody></table>
+<h2 id="fetch-account-information"><a class="header-link" href="#fetch-account-information"></a>Fetch account information</h2>
+<pre class="hljs"><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v2</span>/mining_user/<span class="hljs-meta">get</span></code></pre><h4 id="request-parameter"><a class="header-link" href="#request-parameter"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter"><a class="header-link" href="#response-parameter"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">Read-only page data</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">Wallet address information of all currencies</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description of the account</td>
+</tr>
+</tbody></table>
+<h2 id="add-new-mining-account"><a class="header-link" href="#add-new-mining-account"></a>Add new mining account</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user/add</code></pre><h4 id="request-parameter-1"><a class="header-link" href="#request-parameter-1"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Add new mining account, account name should contain 2-15 lower case letters or numbers, beginning with a letter.</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-1"><a class="header-link" href="#response-parameter-1"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">Read-only page data</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">Wallet address information of all currencies</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description of the account</td>
+</tr>
+</tbody></table>
+<h2 id="list-all-mining-accounts"><a class="header-link" href="#list-all-mining-accounts"></a>List all mining accounts</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user/list</code></pre><h4 id="response-parameter-2"><a class="header-link" href="#response-parameter-2"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_list</td>
+<td align="left"><a href="#mininguserinfo">MiningUserInfo</a></td>
+<td align="left">repeated</td>
+<td align="left">Get the list of all mining accounts</td>
+</tr>
+</tbody></table>
+<h2 id="modify-wallet-address"><a class="header-link" href="#modify-wallet-address"></a>Modify wallet address</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/wallet/u</span>pdate</code></pre><h4 id="request-parameter-2"><a class="header-link" href="#request-parameter-2"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">params</td>
+<td align="left"><a href="#walletparams">WalletParams</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-3"><a class="header-link" href="#response-parameter-3"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="wallet-address-change-history"><a class="header-link" href="#wallet-address-change-history"></a>Wallet address change history</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/wallet/</span>history</code></pre><h4 id="request-parameter-3"><a class="header-link" href="#request-parameter-3"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">currencies</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">Currency list, at least one</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-4"><a class="header-link" href="#response-parameter-4"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">items</td>
+<td align="left"><a href="#walletchangehistoryitem">WalletChangeHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left">Records from newest to oldest</td>
+</tr>
+</tbody></table>
+<h2 id="create-read-only-page"><a class="header-link" href="#create-read-only-page"></a>Create read-only page</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/read_only_page/</span>add</code></pre><h4 id="request-parameter-4"><a class="header-link" href="#request-parameter-4"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">page_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description of the read-only page</td>
+</tr>
+<tr>
+<td align="left">permissions</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Permission settings, the same as <a href="#readonlypage">ReadOnlyPage</a></td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-5"><a class="header-link" href="#response-parameter-5"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">page</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left"></td>
+<td align="left">Read-only page</td>
+</tr>
+</tbody></table>
+<h2 id="delete-read-only-page"><a class="header-link" href="#delete-read-only-page"></a>Delete read-only page</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/read_only_page/</span><span class="hljs-keyword">delete</span></code></pre><h4 id="request-parameter-5"><a class="header-link" href="#request-parameter-5"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The key in <a href="#readonlypage">ReadOnlyPage</a></td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-6"><a class="header-link" href="#response-parameter-6"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+</tbody></table>
+<h2 id="manual-withdrawal"><a class="header-link" href="#manual-withdrawal"></a>Manual withdrawal</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw</code></pre><h4 id="request-parameter-6"><a class="header-link" href="#request-parameter-6"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-7"><a class="header-link" href="#response-parameter-7"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">paid_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Payment timestamp</td>
+</tr>
+</tbody></table>
+<h2 id="available-data-for-manual-withdrawal-with-specified-amount"><a class="header-link" href="#available-data-for-manual-withdrawal-with-specified-amount"></a>Available data for manual withdrawal with specified amount</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw_with_value/query</code></pre><h4 id="request-parameter-7"><a class="header-link" href="#request-parameter-7"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">User</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-8"><a class="header-link" href="#response-parameter-8"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">available</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">available</td>
+</tr>
+<tr>
+<td align="left">pending</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">pending</td>
+</tr>
+</tbody></table>
+<h2 id="manual-withdrawal-with-specified-amount"><a class="header-link" href="#manual-withdrawal-with-specified-amount"></a>Manual withdrawal with specified amount</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw_with_value</code></pre><h4 id="request-parameter-8"><a class="header-link" href="#request-parameter-8"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">User</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">value</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-9"><a class="header-link" href="#response-parameter-9"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">available</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">available</td>
+</tr>
+<tr>
+<td align="left">pending</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">pending</td>
+</tr>
+</tbody></table>
+<h2 id="pause-payment"><a class="header-link" href="#pause-payment"></a>Pause payment</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/payment/</span>pause</code></pre><h4 id="request-parameter-9"><a class="header-link" href="#request-parameter-9"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">mining_user_names</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">Account list</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-10"><a class="header-link" href="#response-parameter-10"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left">result</td>
+</tr>
+</tbody></table>
+<h2 id="resume-payment"><a class="header-link" href="#resume-payment"></a>Resume payment</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/payment/</span>resume</code></pre><h4 id="request-parameter-10"><a class="header-link" href="#request-parameter-10"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">mining_user_names</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">Account list</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-11"><a class="header-link" href="#response-parameter-11"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left">result</td>
+</tr>
+</tbody></table>
+<h2 id="change-payout-threshold"><a class="header-link" href="#change-payout-threshold"></a>Change payout threshold</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/threshold/u</span>pdate</code></pre><h4 id="request-parameter-11"><a class="header-link" href="#request-parameter-11"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Please use values as defined by the website</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-12"><a class="header-link" href="#response-parameter-12"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Payout threshold</td>
+</tr>
+</tbody></table>
+<h2 id="change-payout-threshold-value"><a class="header-link" href="#change-payout-threshold-value"></a>Change payout threshold value</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/threshold/u</span>pdate_value</code></pre><h4 id="request-parameter-12"><a class="header-link" href="#request-parameter-12"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">threshold_value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Please use values as defined by the website</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-13"><a class="header-link" href="#response-parameter-13"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Payout threshold</td>
+</tr>
+</tbody></table>
+<h1 id="assets-module"><a class="header-link" href="#assets-module"></a>Assets module</h1>
+<p>Public Messages:</p>
+<h3 id="balanceinfo"><a class="header-link" href="#balanceinfo"></a>BalanceInfo</h3>
+<p>Mining revenue</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Balance (before 00:00 UTC)</td>
+</tr>
+<tr>
+<td align="left">paid</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Total payment</td>
+</tr>
+<tr>
+<td align="left">total_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Total mining revenues</td>
+</tr>
+<tr>
+<td align="left">status</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left">Status</td>
+</tr>
+<tr>
+<td align="left">yesterday_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Yesterday’s revenues</td>
+</tr>
+<tr>
+<td align="left">estimated_today_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The estimated mining revenue from 00:00 UTC to now</td>
+</tr>
+<tr>
+<td align="left">immature_balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Immature Balance (before 00:00 UTC)</td>
+</tr>
+</tbody></table>
+<h3 id="miningextra"><a class="header-link" href="#miningextra"></a>MiningExtra</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Date of mining</td>
+</tr>
+<tr>
+<td align="left">settle_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Date of settlement</td>
+</tr>
+<tr>
+<td align="left">pps</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">PPS revenues</td>
+</tr>
+<tr>
+<td align="left">pps_fee_rate</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left">The pool fee of the PPS part</td>
+</tr>
+<tr>
+<td align="left">tx_fee</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Reward from transaction fees</td>
+</tr>
+<tr>
+<td align="left">tx_fee_rate</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left">The pool fee of the reward from transaction fees</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average hashrate on the day of mining</td>
+</tr>
+<tr>
+<td align="left">comment</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">comment</td>
+</tr>
+</tbody></table>
+<h3 id="payoutextra"><a class="header-link" href="#payoutextra"></a>PayoutExtra</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">value</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Payout amount</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The wallet address or account name that receive the coins</td>
+</tr>
+<tr>
+<td align="left">tx_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">On-chain transaction ID</td>
+</tr>
+<tr>
+<td align="left">paid_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Payout timestamp</td>
+</tr>
+<tr>
+<td align="left">wallet_type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The type of the wallet address (mainnet wallet address or third part wallet address)</td>
+</tr>
+<tr>
+<td align="left">tip</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Transaction fee</td>
+</tr>
+<tr>
+<td align="left">comment</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">comment</td>
+</tr>
+<tr>
+<td align="left">onchain_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">onchain timestamp</td>
+</tr>
+<tr>
+<td align="left">task_status</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Payout task status; empty when there is no associated payout task</td>
+</tr>
+</tbody></table>
+<h3 id="transactionitem"><a class="header-link" href="#transactionitem"></a>TransactionItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">changed_balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">If the changed_balance is greater than 0, it is the income, less than 0, it is the outcome</td>
+</tr>
+<tr>
+<td align="left">created_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The payout timestamp</td>
+</tr>
+<tr>
+<td align="left">mining_extra</td>
+<td align="left"><a href="#miningextra">MiningExtra</a></td>
+<td align="left"></td>
+<td align="left">Income details</td>
+</tr>
+<tr>
+<td align="left">payout_extra</td>
+<td align="left"><a href="#payoutextra">PayoutExtra</a></td>
+<td align="left"></td>
+<td align="left">Outcome details</td>
+</tr>
+</tbody></table>
+<h2 id="fetch-current-users-asset-details"><a class="header-link" href="#fetch-current-users-asset-details"></a>Fetch current user&#39;s asset details</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets/balance</code></pre><h4 id="request-parameter-13"><a class="header-link" href="#request-parameter-13"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">calculate_estimated_income</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">Calculate estimated income</td>
+</tr>
+<tr>
+<td align="left">historical_total_income_outcome</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">Calculate historical total income/outcome</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-14"><a class="header-link" href="#response-parameter-14"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">balance_info</td>
+<td align="left"><a href="#balanceinfo">BalanceInfo</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="bill-list"><a class="header-link" href="#bill-list"></a>Bill list</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets<span class="hljs-regexp">/transactions/</span>list</code></pre><h4 id="request-parameter-14"><a class="header-link" href="#request-parameter-14"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Required</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Multiple types are separated by <code>,</code><br>- <code>all</code><br>- <code>revenue</code> Mining revenue<br>- <code>reward</code> Activity rewards or consumptions<br>- <code>dividend</code> Income divided by other mining accounts<br>- <code>flash_exchange</code> Exchange value<br>- <code>payout</code> Outcome<br>There are more detailed account types in the return value, please refer to the actual situation</td>
+</tr>
+<tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Start timestamp</td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">End timestamp, must be later than start timestamp</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-15"><a class="header-link" href="#response-parameter-15"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">transactions</td>
+<td align="left"><a href="#transactionitem">TransactionItem</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="settlement-mode"><a class="header-link" href="#settlement-mode"></a>Settlement mode</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets<span class="hljs-regexp">/settle_mode/</span><span class="hljs-keyword">switch</span></code></pre><h4 id="request-parameter-15"><a class="header-link" href="#request-parameter-15"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+<tr>
+<td align="left">mode</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">settle mode</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">user</td>
+</tr>
+<tr>
+<td align="left">activated_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">active time</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-16"><a class="header-link" href="#response-parameter-16"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mode</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">activated_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">active time</td>
+</tr>
+</tbody></table>
+<h1 id="hashrate-module"><a class="header-link" href="#hashrate-module"></a>Hashrate Module</h1>
+<p>Public Messages:</p>
+<h3 id="hashrateinfo"><a class="header-link" href="#hashrateinfo"></a>HashRateInfo</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name or worker name</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Current hashrate, typically averaged over approximately the last 2–30 minutes. The averaging period varies with worker connectivity and available share data. This value indicates hashrate scale and is not recommended for statistics over fixed intervals; accounts participating in hashrate distribution also receive the corresponding additions or deductions. For statistics, use the corresponding historical hashrate endpoint with interval=600. Historical data is subject to synchronization delay.</td>
+</tr>
+<tr>
+<td align="left">h1_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average hashrate of last 1 hour</td>
+</tr>
+<tr>
+<td align="left">h24_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average hashrate of last 24 hours</td>
+</tr>
+<tr>
+<td align="left">h1_stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average rejected hashrate of last 1 hour</td>
+</tr>
+<tr>
+<td align="left">h24_stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average rejected hashrate of last 24 hours</td>
+</tr>
+<tr>
+<td align="left">h24_delay_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average delayed hashrate of last 24 hours</td>
+</tr>
+<tr>
+<td align="left">local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The current local hashrate or reported hashrate</td>
+</tr>
+<tr>
+<td align="left">h24_local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The average local hashrate or reported hashrate of last 24 hours</td>
+</tr>
+</tbody></table>
+<h3 id="mininghistoryitem"><a class="header-link" href="#mininghistoryitem"></a>MiningHistoryItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Timestamp</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate</td>
+</tr>
+<tr>
+<td align="left">stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate rejected</td>
+</tr>
+<tr>
+<td align="left">delay_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate delayed</td>
+</tr>
+<tr>
+<td align="left">local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Local hashrate or reported hashrate</td>
+</tr>
+<tr>
+<td align="left">online_miners</td>
+<td align="left">uint32</td>
+<td align="left"></td>
+<td align="left">Online miners</td>
+</tr>
+</tbody></table>
+<h3 id="userminingreq"><a class="header-link" href="#userminingreq"></a>UserMiningReq</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+</tbody></table>
+<h3 id="workermininginfo"><a class="header-link" href="#workermininginfo"></a>WorkerMiningInfo</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hash_rate_info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left"></td>
+<td align="left">Hashrate information</td>
+</tr>
+<tr>
+<td align="left">last_share_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The time of the last submitted share from the worker</td>
+</tr>
+<tr>
+<td align="left">status</td>
+<td align="left"><a href="#workerstatus">WorkerStatus</a></td>
+<td align="left"></td>
+<td align="left">Current status</td>
+</tr>
+<tr>
+<td align="left">host</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The public IP address</td>
+</tr>
+</tbody></table>
+<h3 id="workerstatus"><a class="header-link" href="#workerstatus"></a>WorkerStatus</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Value</th>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left">ONLINE</td>
+<td align="left">Online</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">OFFLINE</td>
+<td align="left">Offline</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">EXPIRED</td>
+<td align="left">Expired</td>
+</tr>
+</tbody></table>
+<h2 id="hashrate-information"><a class="header-link" href="#hashrate-information"></a>Hashrate information</h2>
+<pre class="hljs"><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v2</span>/hash_rate/<span class="hljs-meta">info</span></code></pre><h4 id="request-parameter-17"><a class="header-link" href="#request-parameter-17"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-18"><a class="header-link" href="#response-parameter-18"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left"></td>
+<td align="left">Hashrate information</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+</tbody></table>
+<h2 id="hashrate-information-of-multiple-account"><a class="header-link" href="#hashrate-information-of-multiple-account"></a>Hashrate information of multiple account</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/info_list</code></pre><h4 id="request-parameter-18"><a class="header-link" href="#request-parameter-18"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reqs</td>
+<td align="left"><a href="#userminingreq">UserMiningReq</a></td>
+<td align="left">repeated</td>
+<td align="left">Request account name or wallet address list, the maximum amount is 100</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-19"><a class="header-link" href="#response-parameter-19"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="hashrate-historical-data-time-serial-data"><a class="header-link" href="#hashrate-historical-data-time-serial-data"></a>Hashrate historical data (time serial data)</h2>
+<p>Returns historical average hashrate aggregated over fixed intervals. Set interval=600 to obtain one data point per 10-minute interval for statistical analysis. Data is subject to synchronization delay.</p>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/history</code></pre><h4 id="request-parameter-19"><a class="header-link" href="#request-parameter-19"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">interval</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The seconds of interval, it should be divisible by 10 minutes</td>
+</tr>
+<tr>
+<td align="left">duration</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The seconds of duration, it is up to 30 days</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-20"><a class="header-link" href="#response-parameter-20"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">history</td>
+<td align="left"><a href="#mininghistoryitem">MiningHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left">Historical data</td>
+</tr>
+</tbody></table>
+<h2 id="worker-list"><a class="header-link" href="#worker-list"></a>Worker list</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/worker/</span>list</code></pre><h4 id="request-parameter-20"><a class="header-link" href="#request-parameter-20"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used)</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-21"><a class="header-link" href="#response-parameter-21"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">workers</td>
+<td align="left"><a href="#workermininginfo">WorkerMiningInfo</a></td>
+<td align="left">repeated</td>
+<td align="left">Worker list</td>
+</tr>
+</tbody></table>
+<h2 id="hashrate-historical-data-time-serial-data-of-worker"><a class="header-link" href="#hashrate-historical-data-time-serial-data-of-worker"></a>Hashrate historical data (time serial data) of worker</h2>
+<p>Returns historical average hashrate for the specified worker, aggregated over fixed intervals. Set interval=600 to obtain one data point per 10-minute interval for statistical analysis. Data is subject to synchronization delay.</p>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/worker/</span>history</code></pre><h4 id="request-parameter-21"><a class="header-link" href="#request-parameter-21"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Account name <i><font color='gray'>(Only one of <code>mining_user_name</code> and <code>address</code> should be used</i>)</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Wallet address</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">worker_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Worker name</td>
+</tr>
+<tr>
+<td align="left">interval</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The seconds of interval, it should be divisible by 10 minutes</td>
+</tr>
+<tr>
+<td align="left">duration</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">The seconds of duration, it is up to 3 days</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-22"><a class="header-link" href="#response-parameter-22"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">history</td>
+<td align="left"><a href="#mininghistoryitem">MiningHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="hashrate-distribution"><a class="header-link" href="#hashrate-distribution"></a>Hashrate Distribution</h1>
+<p>Public Messages:</p>
+<h3 id="hashratedistributionorder"><a class="header-link" href="#hashratedistributionorder"></a>HashRateDistributionOrder</h3>
+<p>Requires the order of hashrate distribution</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Start timestamp</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">End timestamp, must be later than start timestamp</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate</td>
+</tr>
+<tr>
+<td align="left">terminate_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Return value if the order was ended early, otherwise 0</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Extra data of the order, hex string, used to implement custom logic by the caller, can be empty if not needed</td>
+</tr>
+</tbody></table>
+<h3 id="hashratedistributionsettlement"><a class="header-link" href="#hashratedistributionsettlement"></a>HashRateDistributionSettlement</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">order</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left"></td>
+<td align="left">Order</td>
+</tr>
+<tr>
+<td align="left">hashes</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Note that this is the number of hashes, not the hashrate</td>
+</tr>
+<tr>
+<td align="left">income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Revenue (deprecated, always returns 0)</td>
+</tr>
+<tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Settlement timestamp of the hashrate distribution</td>
+</tr>
+</tbody></table>
+<h2 id="hashrate-distribution-information"><a class="header-link" href="#hashrate-distribution-information"></a>Hashrate distribution information</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/i</span>nfo</code></pre><h4 id="request-parameter-22"><a class="header-link" href="#request-parameter-22"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Start timestamp</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">End timestamp, must be later than start timestamp</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Extra data of the order, hex string, used to implement custom logic by the caller</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-23"><a class="header-link" href="#response-parameter-23"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">current_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The total hashrate</td>
+</tr>
+<tr>
+<td align="left">sold_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The hashrate that has been distributed</td>
+</tr>
+<tr>
+<td align="left">remaining_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">The remaining hashrate</td>
+</tr>
+</tbody></table>
+<h2 id="list-of-all-orders-of-hashrate-distribution"><a class="header-link" href="#list-of-all-orders-of-hashrate-distribution"></a>List of all orders of hashrate distribution</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>orders</code></pre><h4 id="request-parameter-23"><a class="header-link" href="#request-parameter-23"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left">optional</td>
+<td align="left">UTC Unix timestamp (seconds or 13-digit milliseconds). With <code>end_date</code>, forms half-open range <code>[start_date, end_date)</code>. Filters orders that overlap the window: <code>end_timestamp &gt;= start_date</code> and <code>start_timestamp &lt; end_date</code>.</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left">optional</td>
+<td align="left">See <code>start_date</code>. Must be greater than <code>start_date</code> when both are set.</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left">optional</td>
+<td align="left">Hex string (optional <code>0x</code> prefix), same as when creating the distribution. When set, only orders with this <code>external_id</code> are returned.</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-24"><a class="header-link" href="#response-parameter-24"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">orders</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="list-of-all-settlements-of-hashrate-distribution"><a class="header-link" href="#list-of-all-settlements-of-hashrate-distribution"></a>List of all settlements of hashrate distribution</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>settlements</code></pre><h4 id="request-parameter-24"><a class="header-link" href="#request-parameter-24"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left">optional</td>
+<td align="left">UTC Unix timestamp (seconds or 13-digit milliseconds). With <code>end_date</code>, forms half-open range <code>[start_date, end_date)</code>. Filters settlements where <code>timestamp &gt;= start_date</code> and <code>timestamp &lt; end_date</code>.</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left">optional</td>
+<td align="left">See <code>start_date</code>. Must be greater than <code>start_date</code> when both are set.</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left">optional</td>
+<td align="left">Hex string (optional <code>0x</code> prefix), matching the linked distribution order. When set, only settlements for orders with this <code>external_id</code> are returned.</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-25"><a class="header-link" href="#response-parameter-25"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">settlements</td>
+<td align="left"><a href="#hashratedistributionsettlement">HashRateDistributionSettlement</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="distribute-hashrate-to-an-f2pool-account"><a class="header-link" href="#distribute-hashrate-to-an-f2pool-account"></a>Distribute hashrate to an f2pool account</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/distribute</code></pre><h4 id="request-parameter-25"><a class="header-link" href="#request-parameter-25"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Start timestamp</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">End timestamp, must be later than start timestamp</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Hashrate</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Extra data of the order, hex string, used to implement custom logic by the caller</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-26"><a class="header-link" href="#response-parameter-26"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">order</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="terminate-hashrate-distribution-order"><a class="header-link" href="#terminate-hashrate-distribution-order"></a>Terminate hashrate distribution order</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>terminate</code></pre><h4 id="request-parameter-26"><a class="header-link" href="#request-parameter-26"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">order_id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-27"><a class="header-link" href="#response-parameter-27"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reason</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="revenue-distribution"><a class="header-link" href="#revenue-distribution"></a>Revenue Distribution</h1>
+<p>Public Messages:</p>
+<h3 id="revenuedistribution"><a class="header-link" href="#revenuedistribution"></a>RevenueDistribution</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">proportion</td>
+</tr>
+</tbody></table>
+<h2 id="get-revenue-distribution-information"><a class="header-link" href="#get-revenue-distribution-information"></a>Get revenue distribution information</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/i</span>nfo</code></pre><h4 id="request-parameter-27"><a class="header-link" href="#request-parameter-27"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-28"><a class="header-link" href="#response-parameter-28"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">data</td>
+<td align="left"><a href="#revenuedistribution">RevenueDistribution</a></td>
+<td align="left">repeated</td>
+<td align="left">list of distributed configs</td>
+</tr>
+</tbody></table>
+<h2 id="distribute-revenue-to-an-f2pool-account"><a class="header-link" href="#distribute-revenue-to-an-f2pool-account"></a>Distribute revenue to an f2pool account</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/</span>add</code></pre><h4 id="request-parameter-28"><a class="header-link" href="#request-parameter-28"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">proportion</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-29"><a class="header-link" href="#response-parameter-29"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient account name</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">proportion</td>
+</tr>
+</tbody></table>
+<h2 id="distribute-revenue-to-a-wallet-address"><a class="header-link" href="#distribute-revenue-to-a-wallet-address"></a>Distribute revenue to a wallet address</h2>
+<p>Currently supports BTC only and is available only to subaccounts of approved main accounts (not the main accounts themselves). The server creates or reuses an internal recipient and only returns the real wallet address. The API token must explicitly include <code>revenue/distribution/add/to_address</code>; each distributor can create up to 100 new addresses per day.</p>
+<pre class="hljs"><code>POST /v2/revenue/distribution/add/to_address</code></pre>
+<h4 id="wallet-address-request-parameters"><a class="header-link" href="#wallet-address-request-parameters"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type. Currently only bitcoin is supported</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient wallet address</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description, up to 64 characters</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Proportion in (0, 100], with at most two decimal places</td>
+</tr>
+</tbody></table>
+<h4 id="wallet-address-response-parameters"><a class="header-link" href="#wallet-address-response-parameters"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Revenue distribution record id, usable by the delete endpoint</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency type</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The recipient wallet address</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Description</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">Proportion</td>
+</tr>
+<tr>
+<td align="left">proxy_reused</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">Whether the internal recipient created for this address was reused</td>
+</tr>
+</tbody></table>
+<h2 id="terminate-revenue-distribution-record"><a class="header-link" href="#terminate-revenue-distribution-record"></a>Terminate revenue distribution record</h2>
+<pre class="hljs"><code>POST  <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/</span><span class="hljs-keyword">delete</span></code></pre><h4 id="request-parameter-29"><a class="header-link" href="#request-parameter-29"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">The distributor account name</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-30"><a class="header-link" href="#response-parameter-30"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reason</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="pool-information"><a class="header-link" href="#pool-information"></a>Pool Information</h1>
+<p>Public Messages:</p>
+<h3 id="luckyentry"><a class="header-link" href="#luckyentry"></a>LuckyEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="block"><a class="header-link" href="#block"></a>Block</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">height</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">block_hash</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">base_reward</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">total_reward</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">settle_timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="blocks-list"><a class="header-link" href="#blocks-list"></a>Blocks list</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/paging</code></pre><h4 id="request-parameter-30"><a class="header-link" href="#request-parameter-30"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">page</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">pagesize</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-31"><a class="header-link" href="#response-parameter-31"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">lucky</td>
+<td align="left"><a href="#luckyentry">LuckyEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sum</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="blocks-list-1"><a class="header-link" href="#blocks-list-1"></a>Blocks list</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/date_range</code></pre><h4 id="request-parameter-31"><a class="header-link" href="#request-parameter-31"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-32"><a class="header-link" href="#response-parameter-32"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">lucky</td>
+<td align="left"><a href="#luckyentry">LuckyEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sum</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="mining-reward-details-of-user-pplns"><a class="header-link" href="#mining-reward-details-of-user-pplns"></a>mining reward details of user pplns</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/user</code></pre><h4 id="request-parameter-32"><a class="header-link" href="#request-parameter-32"></a>Request Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">Currency Type</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">User</td>
+</tr>
+<tr>
+<td align="left">mining_reward</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Reward</td>
+</tr>
+<tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">Start time</td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">End time</td>
+</tr>
+</tbody></table>
+<h4 id="response-parameter-33"><a class="header-link" href="#response-parameter-33"></a>Response Parameter</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Mark</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+    </article>
+  </body>
+</html>

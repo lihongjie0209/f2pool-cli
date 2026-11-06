@@ -1,0 +1,954 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui" />
+  <title>API v1 Documentation</title>
+  <style>
+    body {
+      background-color: #fff;
+      max-width: 790px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    h1 {
+      padding-bottom: 0.3em;
+      font-size: 2.25em;
+      line-height: 1.2;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      margin-bottom: 16px;
+      line-height: 1.43;
+    }
+
+    table {
+      display: block;
+      width: 100%;
+      overflow: auto;
+      margin-bottom: 16px;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    thead {
+      display: table-header-group;
+      vertical-align: middle;
+      border-color: inherit;
+    }
+
+    tr {
+      background-color: #fff;
+      border-top: 1px solid #ccc;
+    }
+
+    tr:nth-child(2n) {
+      background-color: #f8f8f8;
+    }
+
+    th,
+    td {
+      padding: 6px 13px;
+      border: 1px solid #ddd;
+    }
+
+    pre {
+      padding: 16px;
+      margin: 0;
+      line-height: 1.45;
+      background-color: #f7f7f7;
+      border-radius: 3px;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <article>
+    <h1><strong>Overview</strong></h1>
+    <p>
+      Users can obtain account hash rate, revenue, and payment status through the API v1 interface provided by f2pool.
+    </p>
+    <p>
+      This document provides a detailed description of the f2pool API v1 interface calls and return data. Necessary data
+      for mining is described in this document with corresponding calling methods and field explanations. If fields not
+      described in this document appear in the API return values, these fields are reserved or deprecated and should be
+      ignored.
+    </p>
+    <p>&nbsp;</p>
+    <h1>Authentication</h1>
+    <p>
+      To query the API, you need to provide a token with <code>legacy/api_v1</code> permission for the sub-account to
+      get results normally. Users can obtain this token through the API function in the f2pool account settings (make
+      sure to check the <code>legacy/api_v1</code> permission when requesting the token).
+    </p>
+    <p>
+      When requesting the API, put the token obtained earlier in the <code>F2P-API-SECRET</code> attribute of the HTTP
+      request header to complete the authentication.
+    </p>
+    <p>For example:</p>
+    <pre>
+curl --request GET {url} \
+     --header 'Content-Type: application/json' \
+     --header 'F2P-API-SECRET: {token}'
+</pre>
+    <table>
+      <tbody>
+        <tr>
+          <td width="214">
+            <p><strong>Common URLs</strong></p>
+          </td>
+          <td width="321">
+            <p><strong>Description</strong></p>
+          </td>
+        </tr>
+        <tr>
+          <td width="214">
+            <p>https://api.f2pool.com/{currency}/{user}</p>
+          </td>
+          <td width="321">
+            <p>
+              Retrieves the account details of a specific currency, including mining revenue, account balance, miner
+              status (submitted hash rate, staled hash rate, etc.), and payment status.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width="214">
+            <p>https://api.f2pool.com/{currency}/{user0}?multi_account={user1}&amp;multi_account={user2}</p>
+          </td>
+          <td width="321">
+            <p>Retrieves mining information for multiple accounts of a specific currency. Note that user0 is just a
+              placeholder and does not take effect.</p>
+          </td>
+        </tr>
+        <tr>
+          <td width="214">
+            <p>https://api.f2pool.com/{currency}/{user}/{worker_name}</p>
+          </td>
+          <td width="321">
+            <p>
+              Retrieves the hash rate data of a specific miner under a specific account for the past 24 hours.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td width="214">
+            <p>https://api.f2pool.com/{currency}/{user}?history={n}</p>
+          </td>
+          <td width="321">
+            <p>Retrieves the hash rate data of a specific account for the past N days.</p>
+            <p>N&le;60</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <h1><strong>Request Account Details</strong></h1>
+    <pre>
+curl --request GET https://api.f2pool.com/{currency}/{user} \
+     --header 'Content-Type: application/json' \
+     --header 'F2P-API-SECRET: {token}'
+</pre>
+    <p>Frequency limit: 15 times/minute</p>
+    <h3><strong>Request Parameters</strong></h3>
+    <table>
+      <tbody>
+        <tr>
+          <td width="107">
+            <p><strong>Name</strong></p>
+          </td>
+          <td width="83">
+            <p><strong>Type</strong></p>
+          </td>
+          <td>
+            <p><strong>Description</strong></p>
+          </td>
+        </tr>
+        <tr>
+          <td width="107">
+            <p>currency</p>
+          </td>
+          <td width="83">
+            <p>string</p>
+          </td>
+          <td>
+            <p>Mining currency.</p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <p><strong>Currency</strong></p>
+                  </td>
+                  <td>
+                    <p><strong>Value Range</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ALEO</p>
+                  </td>
+                  <td>
+                    <p>aleo</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ALPH</p>
+                  </td>
+                  <td>
+                    <p>alephium</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>BELLS</p>
+                  </td>
+                  <td>
+                    <p>bells-mm</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>BTC</p>
+                  </td>
+                  <td>
+                    <p>bitcion</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>BCH</p>
+                  </td>
+                  <td>
+                    <p>bitcoin-cash</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>CFX</p>
+                  </td>
+                  <td>
+                    <p>conflux</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>DASH</p>
+                  </td>
+                  <td>
+                    <p>dash</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ELA</p>
+                  </td>
+                  <td>
+                    <p>elacoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ETC</p>
+                  </td>
+                  <td>
+                    <p>ethereum-classic</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ETHW</p>
+                  </td>
+                  <td>
+                    <p>ethw</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>FB</p>
+                  </td>
+                  <td>
+                    <p>fractal-bitcoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>FB (BTC merged mining)</p>
+                  </td>
+                  <td>
+                    <p>fractal-bitcoin-mm</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>HTR</p>
+                  </td>
+                  <td>
+                    <p>hathor</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>IRON</p>
+                  </td>
+                  <td>
+                    <p>ironfish</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>JKC</p>
+                  </td>
+                  <td>
+                    <p>junkcoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>KDA</p>
+                  </td>
+                  <td>
+                    <p>kadena</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>KAS</p>
+                  </td>
+                  <td>
+                    <p>kaspa</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>LTC</p>
+                  </td>
+                  <td>
+                    <p>litecoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>LKY</p>
+                  </td>
+                  <td>
+                    <p>luckycoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>CKB</p>
+                  </td>
+                  <td>
+                    <p>nervos</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>NEXA</p>
+                  </td>
+                  <td>
+                    <p>nexa</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>NMC</p>
+                  </td>
+                  <td>
+                    <p>nmccoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>PEP</p>
+                  </td>
+                  <td>
+                    <p>pepecoin</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ZEC</p>
+                  </td>
+                  <td>
+                    <p>zcash</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>ZEN</p>
+                  </td>
+                  <td>
+                    <p>zen</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>&nbsp;</p>
+          </td>
+        </tr>
+        <tr>
+          <td width="107">
+            <p>user</p>
+          </td>
+          <td width="83">
+            <p>string</p>
+          </td>
+          <td>
+            <p>
+              The username of the mining account. The main account username and sub-account username need to be queried
+              separately.
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <h3><strong>Request Example</strong></h3>
+    <p>
+      Using the API token of account example:
+      60sai0&hellip;&hellip;zuxuvid to request the BTC details of account example, including account revenue, payment
+      details, hash rate status, etc.
+    </p>
+    <pre>curl --request GET&nbsp;https://api.f2pool.com/bitcoin/example \
+      --header 'Content-Type: application/json' \
+      --header 'F2P-API-SECRET: 60sai0&hellip;&hellip;zuxuvid'
+</pre>
+    <h3><strong>Return Values</strong></h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <p><strong>Name</strong></p>
+          </td>
+          <td>
+            <p><strong>Type</strong></p>
+          </td>
+          <td>
+            <p><strong>Description</strong></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>balance</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Account balance (credited but not paid)</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>fixed_balance</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>fixed_value</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>hashes_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated hashes submitted in the past 24 hours</p>
+            <p>Average hash rate over the past 24 hours = hashes/86400s</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>hashes_last_hour</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated hashes submitted in the past hour</p>
+            <p>Average hash rate over the past hour = hashes/3600s</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>hashrate</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Current estimated hash rate</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>hashrate_history</p>
+          </td>
+          <td>
+            <p>{<br>timestamp_str: double,<br>}</p>
+          </td>
+          <td>
+            <p>Hash rate history over the past 24 hours, recorded every 10 minutes, in H/s</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>hashrate_history_stale</p>
+          </td>
+          <td>
+            <p>{<br>timestamp_str: double,<br>}</p>
+          </td>
+          <td>
+            <p>Stale hash rate history over the past 24 hours, recorded every 10 minutes, in H/s</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>last</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>local_hash</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>local_hashes_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>ori_hashes_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated hashes received in the past 24 hours (original value before hash rate allocation)</p>
+            <p>Average hash rate over the past 24 hours = hashes/86400s</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>ori_hashrate</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Current estimated hash rate (original value before hash rate allocation)</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>ori_value_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>paid</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Paid revenue</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>paid_date</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Payment date</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>paid_state</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Payment status</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>payout_history</p>
+          </td>
+          <td>
+            <p>[]</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>payout_history_fee</p>
+          </td>
+          <td>
+            <p>[]</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>stale_hashes_rejected_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated stale hashes rejected in the past 24 hours</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>stale_hashes_rejected_last_hour</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated stale hashes rejected in the past hour</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>static_balance</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>static_value</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>today_paid</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Today's paid amount</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>user_payout</p>
+          </td>
+          <td>
+            <p>[<code>payout_info</code>]</p>
+          </td>
+          <td>
+            <p>
+              A list of all mining revenue payment records of this account, consisting of <code>payout_info</code>. Each
+              <code>payout_info</code> is also a list containing the following fields:
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>Type</p>
+                  </td>
+                  <td>
+                    <p>Description</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>string</p>
+                  </td>
+                  <td>
+                    <p>Transaction creation time, e.g., "2023-11-29T04:47:49Z"</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>string</p>
+                  </td>
+                  <td>
+                    <p>On-chain transaction ID</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Amount paid</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>string</p>
+                  </td>
+                  <td>
+                    <p>Receiving address or receiving sub-account</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>&nbsp;</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>value</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Paid mining revenue</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>value_change</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>value_last_day</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Deprecated</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>value_today</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Estimated mining revenue for today, from 00:00 (UTC) to the current time.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>worker_length</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Number of miners. Total number of miners online within 24 hours.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>worker_length_online</p>
+          </td>
+          <td>
+            <p>double</p>
+          </td>
+          <td>
+            <p>Number of online miners</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>workers</p>
+          </td>
+          <td>
+            <p>{<br><code>worker_name</code>: <code>worker_info</code>,<br>}</p>
+          </td>
+          <td>
+            <p>
+              Dictionary mapping miner's <code>worker_name</code> to miner details <code>worker_info</code>.
+            </p>
+            <p>
+              Miner details <code>worker_info</code> is a list containing the following data:
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>Type</p>
+                  </td>
+                  <td>
+                    <p>Description</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>string</p>
+                  </td>
+                  <td>
+                    <p>Miner's <code>worker_name</code></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Current estimated hash rate, H/s</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Average hash rate over the past hour, H/s</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Staled hash rate over the past hour, H/s</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Estimated hashes received in the past 24 hours</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Staled hashes received in the past 24 hours</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>string</p>
+                  </td>
+                  <td>
+                    <p>Time of the last share submission, e.g., '2023-02-01T20:41:56.856076Z'</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>boolean</p>
+                  </td>
+                  <td>
+                    <p>Whether the DAG is incorrect (useful for specific currencies)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Local hash rate submitted by the miner</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Estimated local hashes submitted by the miner in the past 24 hours</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>double</p>
+                  </td>
+                  <td>
+                    <p>Estimated delayed hashes submitted by the miner in the past 24 hours</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>&nbsp;</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>&nbsp;</p>
+  </article>
+</body>
+
+</html>

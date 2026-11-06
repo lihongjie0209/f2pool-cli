@@ -1,0 +1,905 @@
+[
+  {
+    "section": "Account Management",
+    "title": "Fetch account information",
+    "path": "/v2/mining_user/get",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Add new mining account",
+    "path": "/v2/mining_user/add",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Add new mining account, account name should contain 2-15 lower case letters or numbers, beginning with a letter."
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "List all mining accounts",
+    "path": "/v2/mining_user/list",
+    "fields": []
+  },
+  {
+    "section": "Account Management",
+    "title": "Modify wallet address",
+    "path": "/v2/mining_user/wallet/update",
+    "fields": [
+      {
+        "name": "params",
+        "type": "WalletParams",
+        "repeated": true,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Wallet address change history",
+    "path": "/v2/mining_user/wallet/history",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "currencies",
+        "type": "string",
+        "repeated": true,
+        "description": "Currency list, at least one"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Create read-only page",
+    "path": "/v2/mining_user/read_only_page/add",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "page_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Description of the read-only page"
+      },
+      {
+        "name": "permissions",
+        "type": "string",
+        "repeated": false,
+        "description": "Permission settings, the same as ReadOnlyPage"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Delete read-only page",
+    "path": "/v2/mining_user/read_only_page/delete",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "key",
+        "type": "string",
+        "repeated": false,
+        "description": "The key in ReadOnlyPage"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Manual withdrawal",
+    "path": "/v2/mining_user/balance/withdraw",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Available data for manual withdrawal with specified amount",
+    "path": "/v2/mining_user/balance/withdraw_with_value/query",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "User"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Manual withdrawal with specified amount",
+    "path": "/v2/mining_user/balance/withdraw_with_value",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "User"
+      },
+      {
+        "name": "value",
+        "type": "double",
+        "repeated": false,
+        "description": "value"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Pause payment",
+    "path": "/v2/mining_user/payment/pause",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "mining_user_names",
+        "type": "string",
+        "repeated": true,
+        "description": "Account list"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Resume payment",
+    "path": "/v2/mining_user/payment/resume",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "mining_user_names",
+        "type": "string",
+        "repeated": true,
+        "description": "Account list"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Change payout threshold",
+    "path": "/v2/mining_user/threshold/update",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "threshold",
+        "type": "string",
+        "repeated": false,
+        "description": "Please use values as defined by the website"
+      }
+    ]
+  },
+  {
+    "section": "Account Management",
+    "title": "Change payout threshold value",
+    "path": "/v2/mining_user/threshold/update_value",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "threshold_value",
+        "type": "string",
+        "repeated": false,
+        "description": "Please use values as defined by the website"
+      }
+    ]
+  },
+  {
+    "section": "Assets module",
+    "title": "Fetch current user's asset details",
+    "path": "/v2/assets/balance",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "calculate_estimated_income",
+        "type": "bool",
+        "repeated": false,
+        "description": "Calculate estimated income"
+      },
+      {
+        "name": "historical_total_income_outcome",
+        "type": "bool",
+        "repeated": false,
+        "description": "Calculate historical total income/outcome"
+      }
+    ]
+  },
+  {
+    "section": "Assets module",
+    "title": "Bill list",
+    "path": "/v2/assets/transactions/list",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Required"
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "repeated": false,
+        "description": "Multiple types are separated by ,- all- revenue Mining revenue- reward Activity rewards or consumptions- dividend Income divided by other mining accounts- flash_exchange Exchange value- payout OutcomeThere are more detailed account types in the return value, please refer to the actual situation"
+      },
+      {
+        "name": "start_time",
+        "type": "int64",
+        "repeated": false,
+        "description": "Start timestamp"
+      },
+      {
+        "name": "end_time",
+        "type": "int64",
+        "repeated": false,
+        "description": "End timestamp, must be later than start timestamp"
+      }
+    ]
+  },
+  {
+    "section": "Assets module",
+    "title": "Settlement mode",
+    "path": "/v2/assets/settle_mode/switch",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "repeated": false,
+        "description": "settle mode"
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "user"
+      },
+      {
+        "name": "activated_at",
+        "type": "int64",
+        "repeated": false,
+        "description": "active time"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Module",
+    "title": "Hashrate information",
+    "path": "/v2/hash_rate/info",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Module",
+    "title": "Hashrate information of multiple account",
+    "path": "/v2/hash_rate/info_list",
+    "fields": [
+      {
+        "name": "reqs",
+        "type": "UserMiningReq",
+        "repeated": true,
+        "description": "Request account name or wallet address list, the maximum amount is 100"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Module",
+    "title": "Hashrate historical data (time serial data)",
+    "path": "/v2/hash_rate/history",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "interval",
+        "type": "int64",
+        "repeated": false,
+        "description": "The seconds of interval, it should be divisible by 10 minutes"
+      },
+      {
+        "name": "duration",
+        "type": "int64",
+        "repeated": false,
+        "description": "The seconds of duration, it is up to 30 days"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Module",
+    "title": "Worker list",
+    "path": "/v2/hash_rate/worker/list",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Module",
+    "title": "Hashrate historical data (time serial data) of worker",
+    "path": "/v2/hash_rate/worker/history",
+    "fields": [
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Account name (Only one of mining_user_name and address should be used)"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "Wallet address"
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "worker_name",
+        "type": "string",
+        "repeated": false,
+        "description": "Worker name"
+      },
+      {
+        "name": "interval",
+        "type": "int64",
+        "repeated": false,
+        "description": "The seconds of interval, it should be divisible by 10 minutes"
+      },
+      {
+        "name": "duration",
+        "type": "int64",
+        "repeated": false,
+        "description": "The seconds of duration, it is up to 3 days"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Distribution",
+    "title": "Hashrate distribution information",
+    "path": "/v2/hash_rate/distribution/info",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "recipient",
+        "type": "string",
+        "repeated": false,
+        "description": "The recipient account name"
+      },
+      {
+        "name": "start_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "Start timestamp"
+      },
+      {
+        "name": "end_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "End timestamp, must be later than start timestamp"
+      },
+      {
+        "name": "hash_rate",
+        "type": "double",
+        "repeated": false,
+        "description": "Hashrate"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "repeated": false,
+        "description": "Extra data of the order, hex string, used to implement custom logic by the caller"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Distribution",
+    "title": "List of all orders of hashrate distribution",
+    "path": "/v2/hash_rate/distribution/orders",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "start_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "UTC Unix timestamp (seconds or 13-digit milliseconds). With end_date, forms half-open range [start_date, end_date). Filters orders that overlap the window: end_timestamp >= start_date and start_timestamp < end_date."
+      },
+      {
+        "name": "end_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "See start_date. Must be greater than start_date when both are set."
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "repeated": false,
+        "description": "Hex string (optional 0x prefix), same as when creating the distribution. When set, only orders with this external_id are returned."
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Distribution",
+    "title": "List of all settlements of hashrate distribution",
+    "path": "/v2/hash_rate/distribution/settlements",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "start_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "UTC Unix timestamp (seconds or 13-digit milliseconds). With end_date, forms half-open range [start_date, end_date). Filters settlements where timestamp >= start_date and timestamp < end_date."
+      },
+      {
+        "name": "end_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "See start_date. Must be greater than start_date when both are set."
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "repeated": false,
+        "description": "Hex string (optional 0x prefix), matching the linked distribution order. When set, only settlements for orders with this external_id are returned."
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Distribution",
+    "title": "Distribute hashrate to an f2pool account",
+    "path": "/v2/hash_rate/distribute",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "recipient",
+        "type": "string",
+        "repeated": false,
+        "description": "The recipient account name"
+      },
+      {
+        "name": "start_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "Start timestamp"
+      },
+      {
+        "name": "end_date",
+        "type": "int64",
+        "repeated": false,
+        "description": "End timestamp, must be later than start timestamp"
+      },
+      {
+        "name": "hash_rate",
+        "type": "double",
+        "repeated": false,
+        "description": "Hashrate"
+      },
+      {
+        "name": "external_id",
+        "type": "string",
+        "repeated": false,
+        "description": "Extra data of the order, hex string, used to implement custom logic by the caller"
+      }
+    ]
+  },
+  {
+    "section": "Hashrate Distribution",
+    "title": "Terminate hashrate distribution order",
+    "path": "/v2/hash_rate/distribution/terminate",
+    "fields": [
+      {
+        "name": "order_id",
+        "type": "int64",
+        "repeated": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Revenue Distribution",
+    "title": "Get revenue distribution information",
+    "path": "/v2/revenue/distribution/info",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "recipient",
+        "type": "string",
+        "repeated": false,
+        "description": "The recipient account name"
+      }
+    ]
+  },
+  {
+    "section": "Revenue Distribution",
+    "title": "Distribute revenue to an f2pool account",
+    "path": "/v2/revenue/distribution/add",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "recipient",
+        "type": "string",
+        "repeated": false,
+        "description": "The recipient account name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "proportion",
+        "type": "double",
+        "repeated": false,
+        "description": "proportion"
+      }
+    ]
+  },
+  {
+    "section": "Revenue Distribution",
+    "title": "Distribute revenue to a wallet address",
+    "path": "/v2/revenue/distribution/add/to_address",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency type. Currently only bitcoin is supported"
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "repeated": false,
+        "description": "The recipient wallet address"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "repeated": false,
+        "description": "Description, up to 64 characters"
+      },
+      {
+        "name": "proportion",
+        "type": "double",
+        "repeated": false,
+        "description": "Proportion in (0, 100], with at most two decimal places"
+      }
+    ]
+  },
+  {
+    "section": "Revenue Distribution",
+    "title": "Terminate revenue distribution record",
+    "path": "/v2/revenue/distribution/delete",
+    "fields": [
+      {
+        "name": "id",
+        "type": "int64",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "distributor",
+        "type": "string",
+        "repeated": false,
+        "description": "The distributor account name"
+      }
+    ]
+  },
+  {
+    "section": "Pool Information",
+    "title": "Blocks list",
+    "path": "/v2/blocks/paging",
+    "fields": [
+      {
+        "name": "page",
+        "type": "int32",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "pagesize",
+        "type": "int32",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      }
+    ]
+  },
+  {
+    "section": "Pool Information",
+    "title": "Blocks list",
+    "path": "/v2/blocks/date_range",
+    "fields": [
+      {
+        "name": "start_time",
+        "type": "int64",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "end_time",
+        "type": "int64",
+        "repeated": false,
+        "description": ""
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      }
+    ]
+  },
+  {
+    "section": "Pool Information",
+    "title": "mining reward details of user pplns",
+    "path": "/v2/blocks/user",
+    "fields": [
+      {
+        "name": "currency",
+        "type": "string",
+        "repeated": false,
+        "description": "Currency Type"
+      },
+      {
+        "name": "mining_user_name",
+        "type": "string",
+        "repeated": false,
+        "description": "User"
+      },
+      {
+        "name": "mining_reward",
+        "type": "int64",
+        "repeated": false,
+        "description": "Reward"
+      },
+      {
+        "name": "start_time",
+        "type": "int64",
+        "repeated": false,
+        "description": "Start time"
+      },
+      {
+        "name": "end_time",
+        "type": "int64",
+        "repeated": false,
+        "description": "End time"
+      }
+    ]
+  }
+]

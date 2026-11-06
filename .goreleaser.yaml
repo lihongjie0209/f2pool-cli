@@ -1,0 +1,32 @@
+version: 2
+project_name: f2pool
+
+builds:
+  - id: f2pool
+    main: ./cmd/f2pool
+    binary: f2pool
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X github.com/lihongjie0209/f2pool-cli/internal/cli.Version={{.Version}}
+
+archives:
+  - id: f2pool
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    files:
+      - README.md
+
+checksum:
+  name_template: checksums.txt

@@ -1,0 +1,2867 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>API 索引</title>
+    <link type="text/css" rel="stylesheet" href="assets/css/github-markdown.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/pilcrow.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/hljs-github.min.css"/>
+  </head>
+  <body>
+    <article class="markdown-body"><h1 id="api-索引"><a class="header-link" href="#api-索引"></a>API 索引</h1>
+<h2 id="更新日志"><a class="header-link" href="#更新日志"></a>更新日志</h2>
+<h3 id="2026-03-24"><a class="header-link" href="#2026-03-24"></a>2026-03-24</h3>
+<h4 id="新增功能"><a class="header-link" href="#新增功能"></a>新增功能</h4>
+<ul class="list">
+<li><strong>算力分配列表筛选</strong>：<code>/v2/hash_rate/distribution/orders</code> 与 <code>/v2/hash_rate/distribution/settlements</code> 增加可选参数 <code>start_date</code>、<code>end_date</code>（左闭右开区间 <code>[start_date, end_date)</code>，UTC；13 位时间戳按毫秒解析）及可选 <code>external_id</code>（hex，与创建分配订单时一致）。</li>
+</ul>
+<hr>
+<h3 id="2026-03-20"><a class="header-link" href="#2026-03-20"></a>2026-03-20</h3>
+<h4 id="新增功能-1"><a class="header-link" href="#新增功能-1"></a>新增功能</h4>
+<ul class="list">
+<li><strong>钱包地址变更历史接口</strong>：新增 <code>/v2/mining_user/wallet/history</code>，支持查询单个子帐户在多个币种下的钱包地址变更历史，返回地址和变更时间。</li>
+</ul>
+<hr>
+<h3 id="2026-01-19"><a class="header-link" href="#2026-01-19"></a>2026-01-19</h3>
+<h4 id="新增功能-2"><a class="header-link" href="#新增功能-2"></a>新增功能</h4>
+<ul class="list">
+<li><strong>算力分配功能增强</strong>：为 <code>/v2/hash_rate/distribute</code> 接口新增 <code>external_id</code> 参数<ul class="list">
+<li><code>external_id</code>：可选的十六进制字符串（hex string），供调用方自定义跟踪或幂等校验。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2025-09-23"><a class="header-link" href="#2025-09-23"></a>2025-09-23</h3>
+<h4 id="新增功能-3"><a class="header-link" href="#新增功能-3"></a>新增功能</h4>
+<ul class="list">
+<li><strong>资产查询接口增强</strong>：为 <code>/v2/assets/balance</code> 接口新增两个可选参数<ul class="list">
+<li><code>calculate_estimated_income</code>：是否计算预估收益</li>
+<li><code>historical_total_income_outcome</code>：是否计算历史总收益/支出</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul class="list">
+<li><a href="#帐户管理">帐户管理</a><ul class="list">
+<li><a href="#获取子帐户信息">获取子帐户信息</a></li>
+<li><a href="#添加子帐户">添加子帐户</a></li>
+<li><a href="#获取子帐户列表">获取子帐户列表</a></li>
+<li><a href="#变更钱包地址">变更钱包地址</a></li>
+<li><a href="#钱包地址变更历史">钱包地址变更历史</a></li>
+<li><a href="#新增观察者链接">新增观察者链接</a></li>
+<li><a href="#删除观察者链接">删除观察者链接</a></li>
+<li><a href="#小额提币">小额提币</a></li>
+<li><a href="#指定金额提币的可用数据">指定金额提币的可用数据</a></li>
+<li><a href="#指定金额提币">指定金额提币</a></li>
+<li><a href="#暂停支付">暂停支付</a></li>
+<li><a href="#恢复支付">恢复支付</a></li>
+<li><a href="#更新起付额">更新起付额</a></li>
+<li><a href="#更新起付额值">更新起付额值</a></li>
+</ul>
+</li>
+<li><a href="#资产情况">资产情况</a><ul class="list">
+<li><a href="#获取用户当前资产信息">获取用户当前资产信息</a></li>
+<li><a href="#收支流水账单">收支流水账单</a></li>
+<li><a href="#更新结算方式">更新结算方式</a></li>
+</ul>
+</li>
+<li><a href="#算力情况">算力情况</a><ul class="list">
+<li><a href="#算力数据">算力数据</a></li>
+<li><a href="#同时查询多帐户的算力数据">同时查询多帐户的算力数据</a></li>
+<li><a href="#算力历史数据（曲线数据）">算力历史数据（曲线数据）</a></li>
+<li><a href="#矿工列表">矿工列表</a></li>
+<li><a href="#矿工算力历史数据（曲线数据）">矿工算力历史数据（曲线数据）</a></li>
+</ul>
+</li>
+<li><a href="#算力分配">算力分配</a><ul class="list">
+<li><a href="#算力分配信息查询">算力分配信息查询</a></li>
+<li><a href="#算力分配订单查询">算力分配订单查询</a></li>
+<li><a href="#算力分配结算查询">算力分配结算查询</a></li>
+<li><a href="#分配算力给挖矿帐户">分配算力给挖矿帐户</a></li>
+<li><a href="#终止算力分配订单">终止算力分配订单</a></li>
+</ul>
+</li>
+<li><a href="#收益分配">收益分配</a><ul class="list">
+<li><a href="#收益分配信息查询">收益分配信息查询</a></li>
+<li><a href="#分配收益给挖矿帐户">分配收益给挖矿帐户</a></li>
+<li><a href="#分配收益到钱包地址">分配收益到钱包地址</a></li>
+<li><a href="#取消算力分配记录">取消算力分配记录</a></li>
+</ul>
+</li>
+<li><a href="#矿池信息">矿池信息</a><ul class="list">
+<li><a href="#矿池出块分页">矿池出块分页</a></li>
+<li><a href="#时间范围内矿池出块">时间范围内矿池出块</a></li>
+<li><a href="#用户pplns的收益详情">用户pplns的收益详情</a></li>
+</ul>
+</li>
+</ul>
+<p>f2pool API 支持通过 HTTPS 请求访问矿池服务，用户可通过网站设置页面获取 API token，或者联系我们的服务人员进行开通。</p>
+<h3 id="api-认证"><a class="header-link" href="#api-认证"></a>API 认证</h3>
+<ul class="list">
+<li><code>F2P-API-SECRET</code> Header 值为上一步获取的 API token</li>
+<li><code>Content-Type</code> 为 <code>application/json</code></li>
+</ul>
+<p>如：</p>
+<pre class="hljs"><code>curl <span class="hljs-params">--request</span> POST {url}
+<span class="hljs-params">--header</span> &#x27;Content-Type: application/json&#x27;
+<span class="hljs-params">--header</span> &#x27;F2P-API-SECRET: {token}&#x27;
+<span class="hljs-params">--data-raw</span> &#x27;{
+<span class="hljs-string">&quot;currency&quot;</span>: <span class="hljs-string">&quot;bitcoin&quot;</span>,
+<span class="hljs-string">&quot;user_name&quot;</span>: <span class="hljs-string">&quot;xxx&quot;</span>,
+<span class="hljs-string">...</span>
+}&#x27;</code></pre><p>{url} 地址为 <code>https://api.f2pool.com/v2/{request_name}</code></p>
+<p>当发生错误的时候，会返回给统一格式的数据</p>
+<pre class="hljs"><code>{
+<span class="hljs-string">&quot;code&quot;</span>: {ERR_CODE},
+<span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">&quot;错误类型: 错误描述&quot;</span>
+}</code></pre><p>API 中 currency 字段可取值支持：</p>
+<pre class="hljs"><code><span class="hljs-attribute">bitcoin</span>,bitcoin-cash,conflux,dash,decred,digibyte-qubit,digibyte-scrypt,digibyte-sha<span class="hljs-number">256</span>d,digibyte-skein,dogecoin,elacoin,ethereum,ethereum-classic,handshake,hathor,kadena,litecoin,nervos,nmccoin,qitmeer-meer,raven,siacoin-new,verge-blake<span class="hljs-number">2</span>s,verge-groestl,verge-lyra,verge-scrypt,verge-x<span class="hljs-number">17</span>,xaya,zcash,zen</code></pre><p>算力情况模块目前仅支持：</p>
+<pre class="hljs"><code><span class="hljs-built_in">bitcoin,</span>bitcoin-cash,litecoin</code></pre><p>算力分配模块目前仅支持：</p>
+<pre class="hljs"><code><span class="hljs-attribute">bitcoin</span></code></pre><h1 id="帐户管理"><a class="header-link" href="#帐户管理"></a>帐户管理</h1>
+<p>公共结构</p>
+<h3 id="readonlypage"><a class="header-link" href="#readonlypage"></a>ReadOnlyPage</h3>
+<p>观察者链接数据</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"><code>/mining-user-{currency}/{key}</code> 为观察者链接 URI</td>
+</tr>
+<tr>
+<td align="left">permissions</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">不同权限以逗号隔开<br/><br>* 1 表示拥有矿工详情权限<br>* 2 表示拥有收益列表包含支付信息权限<br>* 3 表示拥有收益列表不包含支付信息权限</td>
+</tr>
+<tr>
+<td align="left">page_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">观察者链接备注</td>
+</tr>
+</tbody></table>
+<h3 id="wallet"><a class="header-link" href="#wallet"></a>Wallet</h3>
+<p>钱包数据</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">地址</td>
+</tr>
+<tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">起付额</td>
+</tr>
+</tbody></table>
+<h3 id="extraentry"><a class="header-link" href="#extraentry"></a>ExtraEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="mininguserinfo"><a class="header-link" href="#mininguserinfo"></a>MiningUserInfo</h3>
+<p>挖矿子帐户数据</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">观察者链接</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">所有币种钱包信息</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户备注</td>
+</tr>
+</tbody></table>
+<h3 id="walletparams"><a class="header-link" href="#walletparams"></a>WalletParams</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">钱包配置列表</td>
+</tr>
+</tbody></table>
+<h3 id="resultsentry"><a class="header-link" href="#resultsentry"></a>ResultsEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="walletresp"><a class="header-link" href="#walletresp"></a>WalletResp</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">result</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">成功/失败</td>
+</tr>
+<tr>
+<td align="left">msg</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">失败信息</td>
+</tr>
+</tbody></table>
+<h3 id="mininguserwalletresp"><a class="header-link" href="#mininguserwalletresp"></a>MiningUserWalletResp</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">wallet_result</td>
+<td align="left"><a href="#walletresp">WalletResp</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="resultsentry-1"><a class="header-link" href="#resultsentry-1"></a>ResultsEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left"><a href="#mininguserwalletresp">MiningUserWalletResp</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="walletchangehistoryitem"><a class="header-link" href="#walletchangehistoryitem"></a>WalletChangeHistoryItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">变更后的钱包地址</td>
+</tr>
+<tr>
+<td align="left">changed_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">变更时间（Unix 时间戳，秒）</td>
+</tr>
+</tbody></table>
+<h2 id="获取子帐户信息"><a class="header-link" href="#获取子帐户信息"></a>获取子帐户信息</h2>
+<pre class="hljs"><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v2</span>/mining_user/<span class="hljs-meta">get</span></code></pre><h4 id="请求参数"><a class="header-link" href="#请求参数"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子账号名</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数"><a class="header-link" href="#响应参数"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">观察者链接</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">所有币种钱包信息</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户备注</td>
+</tr>
+</tbody></table>
+<h2 id="添加子帐户"><a class="header-link" href="#添加子帐户"></a>添加子帐户</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user/add</code></pre><h4 id="请求参数-1"><a class="header-link" href="#请求参数-1"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">创建子帐户，帐户名必须在 2~15 个字符之间（数字和小写字母），以小写字母开头</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-1"><a class="header-link" href="#响应参数-1"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">pages</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left">repeated</td>
+<td align="left">观察者链接</td>
+</tr>
+<tr>
+<td align="left">wallets</td>
+<td align="left"><a href="#wallet">Wallet</a></td>
+<td align="left">repeated</td>
+<td align="left">所有币种钱包信息</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户备注</td>
+</tr>
+</tbody></table>
+<h2 id="获取子帐户列表"><a class="header-link" href="#获取子帐户列表"></a>获取子帐户列表</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user/list</code></pre><h4 id="响应参数-2"><a class="header-link" href="#响应参数-2"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_list</td>
+<td align="left"><a href="#mininguserinfo">MiningUserInfo</a></td>
+<td align="left">repeated</td>
+<td align="left">获取子帐户列表</td>
+</tr>
+</tbody></table>
+<h2 id="变更钱包地址"><a class="header-link" href="#变更钱包地址"></a>变更钱包地址</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/wallet/u</span>pdate</code></pre><h4 id="请求参数-2"><a class="header-link" href="#请求参数-2"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">params</td>
+<td align="left"><a href="#walletparams">WalletParams</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-3"><a class="header-link" href="#响应参数-3"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="钱包地址变更历史"><a class="header-link" href="#钱包地址变更历史"></a>钱包地址变更历史</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/wallet/</span>history</code></pre><h4 id="请求参数-3"><a class="header-link" href="#请求参数-3"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">currencies</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">币种列表，至少一个</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-4"><a class="header-link" href="#响应参数-4"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">items</td>
+<td align="left"><a href="#walletchangehistoryitem">WalletChangeHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left">变更记录，按时间从新到旧</td>
+</tr>
+</tbody></table>
+<h2 id="新增观察者链接"><a class="header-link" href="#新增观察者链接"></a>新增观察者链接</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/read_only_page/</span>add</code></pre><h4 id="请求参数-4"><a class="header-link" href="#请求参数-4"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">page_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">观察者链接备注</td>
+</tr>
+<tr>
+<td align="left">permissions</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">权限配置，同 <a href="#readonlypage">ReadOnlyPage</a></td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-5"><a class="header-link" href="#响应参数-5"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">page</td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a></td>
+<td align="left"></td>
+<td align="left">观察者链接</td>
+</tr>
+</tbody></table>
+<h2 id="删除观察者链接"><a class="header-link" href="#删除观察者链接"></a>删除观察者链接</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/read_only_page/</span><span class="hljs-keyword">delete</span></code></pre><h4 id="请求参数-5"><a class="header-link" href="#请求参数-5"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"><a href="#readonlypage">ReadOnlyPage</a> 中的 key</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-6"><a class="header-link" href="#响应参数-6"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+</tbody></table>
+<h2 id="小额提币"><a class="header-link" href="#小额提币"></a>小额提币</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw</code></pre><h4 id="请求参数-6"><a class="header-link" href="#请求参数-6"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-7"><a class="header-link" href="#响应参数-7"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">paid_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">支付时间戳</td>
+</tr>
+</tbody></table>
+<h2 id="指定金额提币的可用数据"><a class="header-link" href="#指定金额提币的可用数据"></a>指定金额提币的可用数据</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw_with_value/query</code></pre><h4 id="请求参数-7"><a class="header-link" href="#请求参数-7"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">用户</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-8"><a class="header-link" href="#响应参数-8"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">available</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">available</td>
+</tr>
+<tr>
+<td align="left">pending</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">pending</td>
+</tr>
+</tbody></table>
+<h2 id="指定金额提币"><a class="header-link" href="#指定金额提币"></a>指定金额提币</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/balance/</span>withdraw_with_value</code></pre><h4 id="请求参数-8"><a class="header-link" href="#请求参数-8"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">用户</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">value</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-9"><a class="header-link" href="#响应参数-9"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">available</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">available</td>
+</tr>
+<tr>
+<td align="left">pending</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">pending</td>
+</tr>
+</tbody></table>
+<h2 id="暂停支付"><a class="header-link" href="#暂停支付"></a>暂停支付</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/payment/</span>pause</code></pre><h4 id="请求参数-9"><a class="header-link" href="#请求参数-9"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mining_user_names</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">子帐户名列表</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-10"><a class="header-link" href="#响应参数-10"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left">结果</td>
+</tr>
+</tbody></table>
+<h2 id="恢复支付"><a class="header-link" href="#恢复支付"></a>恢复支付</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/payment/</span>resume</code></pre><h4 id="请求参数-10"><a class="header-link" href="#请求参数-10"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mining_user_names</td>
+<td align="left">string</td>
+<td align="left">repeated</td>
+<td align="left">子帐户名列表</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-11"><a class="header-link" href="#响应参数-11"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">results</td>
+<td align="left"><a href="#resultsentry">ResultsEntry</a></td>
+<td align="left">repeated</td>
+<td align="left">结果</td>
+</tr>
+</tbody></table>
+<h2 id="更新起付额"><a class="header-link" href="#更新起付额"></a>更新起付额</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/threshold/u</span>pdate</code></pre><h4 id="请求参数-11"><a class="header-link" href="#请求参数-11"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">请使用网站定义的合法值</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-12"><a class="header-link" href="#响应参数-12"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">起付额</td>
+</tr>
+</tbody></table>
+<h2 id="更新起付额值"><a class="header-link" href="#更新起付额值"></a>更新起付额值</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/mi</span>ning_user<span class="hljs-regexp">/threshold/u</span>pdate_value</code></pre><h4 id="请求参数-12"><a class="header-link" href="#请求参数-12"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子帐户名</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">threshold_value</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">请使用网站定义的合法值</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-13"><a class="header-link" href="#响应参数-13"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">threshold</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">起付额</td>
+</tr>
+</tbody></table>
+<h1 id="资产情况"><a class="header-link" href="#资产情况"></a>资产情况</h1>
+<p>公共结构</p>
+<h3 id="balanceinfo"><a class="header-link" href="#balanceinfo"></a>BalanceInfo</h3>
+<p>挖矿收益</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">当前余额（UTC 0 点之前）</td>
+</tr>
+<tr>
+<td align="left">paid</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">已支付收益</td>
+</tr>
+<tr>
+<td align="left">total_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">总收益</td>
+</tr>
+<tr>
+<td align="left">status</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left">状态</td>
+</tr>
+<tr>
+<td align="left">yesterday_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">昨日收益</td>
+</tr>
+<tr>
+<td align="left">estimated_today_income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">今日预估收益（根据算力预估）</td>
+</tr>
+<tr>
+<td align="left">immature_balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">当前未成熟余额（UTC 0 点之前）</td>
+</tr>
+</tbody></table>
+<h3 id="miningextra"><a class="header-link" href="#miningextra"></a>MiningExtra</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">产生收益日期时间戳</td>
+</tr>
+<tr>
+<td align="left">settle_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结算收益日期时间戳</td>
+</tr>
+<tr>
+<td align="left">pps</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">PPS 收益</td>
+</tr>
+<tr>
+<td align="left">pps_fee_rate</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left">PPS 矿池费率</td>
+</tr>
+<tr>
+<td align="left">tx_fee</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">矿工费奖励</td>
+</tr>
+<tr>
+<td align="left">tx_fee_rate</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left">矿工费部分的矿池费率</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">当日平均算力</td>
+</tr>
+<tr>
+<td align="left">comment</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">备注</td>
+</tr>
+</tbody></table>
+<h3 id="payoutextra"><a class="header-link" href="#payoutextra"></a>PayoutExtra</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">value</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">支出金额</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收款地址或收款子账号</td>
+</tr>
+<tr>
+<td align="left">tx_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">链上交易 ID</td>
+</tr>
+<tr>
+<td align="left">paid_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">支付时间戳</td>
+</tr>
+<tr>
+<td align="left">wallet_type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包类型（链上钱包或第三方钱包）</td>
+</tr>
+<tr>
+<td align="left">tip</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">交易手续费</td>
+</tr>
+<tr>
+<td align="left">comment</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">onchain_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">上链时间</td>
+</tr>
+<tr>
+<td align="left">task_status</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">出账任务状态；没有关联出账任务时为空</td>
+</tr>
+</tbody></table>
+<h3 id="transactionitem"><a class="header-link" href="#transactionitem"></a>TransactionItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">changed_balance</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">changed_balance 大于 0 为收入， 小于 0 为支出</td>
+</tr>
+<tr>
+<td align="left">created_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">交易生成时间戳</td>
+</tr>
+<tr>
+<td align="left">mining_extra</td>
+<td align="left"><a href="#miningextra">MiningExtra</a></td>
+<td align="left"></td>
+<td align="left">收入明细</td>
+</tr>
+<tr>
+<td align="left">payout_extra</td>
+<td align="left"><a href="#payoutextra">PayoutExtra</a></td>
+<td align="left"></td>
+<td align="left">支出明细</td>
+</tr>
+</tbody></table>
+<h2 id="获取用户当前资产信息"><a class="header-link" href="#获取用户当前资产信息"></a>获取用户当前资产信息</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets/balance</code></pre><h4 id="请求参数-13"><a class="header-link" href="#请求参数-13"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">calculate_estimated_income</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">计算预估收益</td>
+</tr>
+<tr>
+<td align="left">historical_total_income_outcome</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">计算历史总收益/支出</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-14"><a class="header-link" href="#响应参数-14"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">balance_info</td>
+<td align="left"><a href="#balanceinfo">BalanceInfo</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="收支流水账单"><a class="header-link" href="#收支流水账单"></a>收支流水账单</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets<span class="hljs-regexp">/transactions/</span>list</code></pre><h4 id="请求参数-14"><a class="header-link" href="#请求参数-14"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">必填</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">多个类型以 &quot;,&quot; 分割<br>- all 全部<br>- revenue 挖矿收益<br>- reward 活动奖励或补偿<br>- dividend 股份分成<br>- flash_exchange 闪兑<br>- payout 支出<br>返回值中有更详细的账目类型以实际业务为准</td>
+</tr>
+<tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">开始时间戳</td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结束时间戳</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-15"><a class="header-link" href="#响应参数-15"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">transactions</td>
+<td align="left"><a href="#transactionitem">TransactionItem</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="更新结算方式"><a class="header-link" href="#更新结算方式"></a>更新结算方式</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>assets<span class="hljs-regexp">/settle_mode/</span><span class="hljs-keyword">switch</span></code></pre><h4 id="请求参数-15"><a class="header-link" href="#请求参数-15"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mode</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">模式</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">子账户</td>
+</tr>
+<tr>
+<td align="left">activated_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">生效时间</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-16"><a class="header-link" href="#响应参数-16"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mode</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">activated_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">生效时间</td>
+</tr>
+</tbody></table>
+<h1 id="算力情况"><a class="header-link" href="#算力情况"></a>算力情况</h1>
+<p>公共结构</p>
+<h3 id="hashrateinfo"><a class="header-link" href="#hashrateinfo"></a>HashRateInfo</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名，或者矿工名</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">当前算力，通常反映最近约 2～30 分钟内的平均水平，统计时长随矿机连接及 share 数据情况调整。主要用于观察算力规模，不建议用于固定时间段的统计；参与算力分配的账户还会加减分配算力。统计请使用对应的历史算力接口并设置 interval=600，历史数据存在同步延迟。</td>
+</tr>
+<tr>
+<td align="left">h1_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 1 小时平均算力</td>
+</tr>
+<tr>
+<td align="left">h24_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 24 小时平均算力</td>
+</tr>
+<tr>
+<td align="left">h1_stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 1 小时平均拒绝算力</td>
+</tr>
+<tr>
+<td align="left">h24_stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 24 小时平均拒绝算力</td>
+</tr>
+<tr>
+<td align="left">h24_delay_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 24 小时延迟算力</td>
+</tr>
+<tr>
+<td align="left">local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">实时本地算力</td>
+</tr>
+<tr>
+<td align="left">h24_local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">过去 24 小时本地平均算力</td>
+</tr>
+</tbody></table>
+<h3 id="mininghistoryitem"><a class="header-link" href="#mininghistoryitem"></a>MiningHistoryItem</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">时间戳</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">算力</td>
+</tr>
+<tr>
+<td align="left">stale_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">拒绝算力</td>
+</tr>
+<tr>
+<td align="left">delay_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">延迟算力</td>
+</tr>
+<tr>
+<td align="left">local_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">本地算力</td>
+</tr>
+<tr>
+<td align="left">online_miners</td>
+<td align="left">uint32</td>
+<td align="left"></td>
+<td align="left">在线矿机数</td>
+</tr>
+</tbody></table>
+<h3 id="userminingreq"><a class="header-link" href="#userminingreq"></a>UserMiningReq</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h3 id="workermininginfo"><a class="header-link" href="#workermininginfo"></a>WorkerMiningInfo</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hash_rate_info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left"></td>
+<td align="left">算力信息</td>
+</tr>
+<tr>
+<td align="left">last_share_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">最近一次算力提交时间戳</td>
+</tr>
+<tr>
+<td align="left">status</td>
+<td align="left"><a href="#workerstatus">WorkerStatus</a></td>
+<td align="left"></td>
+<td align="left">当前状态</td>
+</tr>
+<tr>
+<td align="left">host</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">IP 地址</td>
+</tr>
+</tbody></table>
+<h3 id="workerstatus"><a class="header-link" href="#workerstatus"></a>WorkerStatus</h3>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">名称</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left">ONLINE</td>
+<td align="left">在线</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">OFFLINE</td>
+<td align="left">离线</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">EXPIRED</td>
+<td align="left">失效</td>
+</tr>
+</tbody></table>
+<h2 id="算力数据"><a class="header-link" href="#算力数据"></a>算力数据</h2>
+<pre class="hljs"><code><span class="hljs-symbol">POST</span> /<span class="hljs-built_in">v2</span>/hash_rate/<span class="hljs-meta">info</span></code></pre><h4 id="请求参数-17"><a class="header-link" href="#请求参数-17"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-18"><a class="header-link" href="#响应参数-18"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left"></td>
+<td align="left">算力信息</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h2 id="同时查询多帐户的算力数据"><a class="header-link" href="#同时查询多帐户的算力数据"></a>同时查询多帐户的算力数据</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/info_list</code></pre><h4 id="请求参数-18"><a class="header-link" href="#请求参数-18"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reqs</td>
+<td align="left"><a href="#userminingreq">UserMiningReq</a></td>
+<td align="left">repeated</td>
+<td align="left">需要查询的子帐户名或匿名地址列表，最多 100</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-19"><a class="header-link" href="#响应参数-19"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">info</td>
+<td align="left"><a href="#hashrateinfo">HashRateInfo</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="算力历史数据（曲线数据）"><a class="header-link" href="#算力历史数据（曲线数据）"></a>算力历史数据（曲线数据）</h2>
+<p>返回按固定时间段汇总的历史平均算力。设置 interval=600 可获取每 10 分钟一个数据点，适合统计分析；数据存在同步延迟。</p>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/history</code></pre><h4 id="请求参数-19"><a class="header-link" href="#请求参数-19"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">interval</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">单位为秒，间隔应该是 10 分钟的倍数</td>
+</tr>
+<tr>
+<td align="left">duration</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">单位为秒，时长最多是30天</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-20"><a class="header-link" href="#响应参数-20"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">history</td>
+<td align="left"><a href="#mininghistoryitem">MiningHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left">历史数据</td>
+</tr>
+</tbody></table>
+<h2 id="矿工列表"><a class="header-link" href="#矿工列表"></a>矿工列表</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/worker/</span>list</code></pre><h4 id="请求参数-20"><a class="header-link" href="#请求参数-20"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-21"><a class="header-link" href="#响应参数-21"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">workers</td>
+<td align="left"><a href="#workermininginfo">WorkerMiningInfo</a></td>
+<td align="left">repeated</td>
+<td align="left">矿机列表</td>
+</tr>
+</tbody></table>
+<h2 id="矿工算力历史数据（曲线数据）"><a class="header-link" href="#矿工算力历史数据（曲线数据）"></a>矿工算力历史数据（曲线数据）</h2>
+<p>返回指定矿机按固定时间段汇总的历史平均算力。设置 interval=600 可获取每 10 分钟一个数据点，适合统计分析；数据存在同步延迟。</p>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/worker/</span>history</code></pre><h4 id="请求参数-21"><a class="header-link" href="#请求参数-21"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">帐户名<i><font color='gray'>（用户名信息只能使用帐户名 mining_user_name 或钱包地址 wallet address 之一）</font></i></td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">钱包地址</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">worker_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">矿机名称</td>
+</tr>
+<tr>
+<td align="left">interval</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">单位为秒，间隔应该是 10 分钟的倍数</td>
+</tr>
+<tr>
+<td align="left">duration</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">单位为秒，时长最多是3天</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-22"><a class="header-link" href="#响应参数-22"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">history</td>
+<td align="left"><a href="#mininghistoryitem">MiningHistoryItem</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="算力分配"><a class="header-link" href="#算力分配"></a>算力分配</h1>
+<p>公共结构</p>
+<h3 id="hashratedistributionorder"><a class="header-link" href="#hashratedistributionorder"></a>HashRateDistributionOrder</h3>
+<p>请求算力分配订单</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">开始时间戳</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结束时间戳（必须大于开始时间）</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配算力的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">算力接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">算力</td>
+</tr>
+<tr>
+<td align="left">terminate_at</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">如果提前结束了订单，那么会有值，否则为 0</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">订单的额外数据 hex string, 用于调用方实现自定义逻辑, 默认为空可不传</td>
+</tr>
+</tbody></table>
+<h3 id="hashratedistributionsettlement"><a class="header-link" href="#hashratedistributionsettlement"></a>HashRateDistributionSettlement</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">order</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left"></td>
+<td align="left">订单</td>
+</tr>
+<tr>
+<td align="left">hashes</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">注意这里是 hash 数，而不是算力</td>
+</tr>
+<tr>
+<td align="left">income</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">所得收益（已弃用，始终返回 0）</td>
+</tr>
+<tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">算力分配结算时间戳</td>
+</tr>
+</tbody></table>
+<h2 id="算力分配信息查询"><a class="header-link" href="#算力分配信息查询"></a>算力分配信息查询</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/i</span>nfo</code></pre><h4 id="请求参数-22"><a class="header-link" href="#请求参数-22"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配算力的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">算力接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">开始时间戳</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结束时间戳（必须大于开始时间）</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">算力值</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">订单的额外数据 hex string, 用于调用方实现自定义逻辑</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-23"><a class="header-link" href="#响应参数-23"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">current_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">总算力</td>
+</tr>
+<tr>
+<td align="left">sold_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">已分配出去的算力</td>
+</tr>
+<tr>
+<td align="left">remaining_hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">剩余算力</td>
+</tr>
+</tbody></table>
+<h2 id="算力分配订单查询"><a class="header-link" href="#算力分配订单查询"></a>算力分配订单查询</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>orders</code></pre><h4 id="请求参数-23"><a class="header-link" href="#请求参数-23"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配算力的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left">可选</td>
+<td align="left">UTC Unix 时间戳（秒或 13 位毫秒）。与 <code>end_date</code> 组成左闭右开区间 <code>[start_date, end_date)</code>，保留与区间相交的订单：<code>end_timestamp &gt;= start_date</code> 且 <code>start_timestamp &lt; end_date</code>。</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left">可选</td>
+<td align="left">见 <code>start_date</code>。两者均传入时须满足 <code>start_date &lt; end_date</code>。</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left">可选</td>
+<td align="left">hex 字符串（可带 <code>0x</code> 前缀），与创建分配时一致；传入时仅返回匹配的订单。</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-24"><a class="header-link" href="#响应参数-24"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">orders</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="算力分配结算查询"><a class="header-link" href="#算力分配结算查询"></a>算力分配结算查询</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>settlements</code></pre><h4 id="请求参数-24"><a class="header-link" href="#请求参数-24"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配算力的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left">可选</td>
+<td align="left">UTC Unix 时间戳（秒或 13 位毫秒）。与 <code>end_date</code> 组成左闭右开区间 <code>[start_date, end_date)</code>，按结算时间过滤：<code>timestamp &gt;= start_date</code> 且 <code>timestamp &lt; end_date</code>。</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left">可选</td>
+<td align="left">见 <code>start_date</code>。两者均传入时须满足 <code>start_date &lt; end_date</code>。</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left">可选</td>
+<td align="left">hex 字符串（可带 <code>0x</code> 前缀），与关联分配订单一致；传入时仅返回对应订单下的结算。</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-25"><a class="header-link" href="#响应参数-25"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">settlements</td>
+<td align="left"><a href="#hashratedistributionsettlement">HashRateDistributionSettlement</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="分配算力给挖矿帐户"><a class="header-link" href="#分配算力给挖矿帐户"></a>分配算力给挖矿帐户</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate/distribute</code></pre><h4 id="请求参数-25"><a class="header-link" href="#请求参数-25"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配算力的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">算力接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">开始时间戳</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结束时间戳（必须大于开始时间）</td>
+</tr>
+<tr>
+<td align="left">hash_rate</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">算力值</td>
+</tr>
+<tr>
+<td align="left">external_id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">订单的额外数据 hex string, 用于调用方实现自定义逻辑</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-26"><a class="header-link" href="#响应参数-26"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">order</td>
+<td align="left"><a href="#hashratedistributionorder">HashRateDistributionOrder</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="终止算力分配订单"><a class="header-link" href="#终止算力分配订单"></a>终止算力分配订单</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>hash_rate<span class="hljs-regexp">/distribution/</span>terminate</code></pre><h4 id="请求参数-26"><a class="header-link" href="#请求参数-26"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">order_id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-27"><a class="header-link" href="#响应参数-27"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reason</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="收益分配"><a class="header-link" href="#收益分配"></a>收益分配</h1>
+<p>公共结构</p>
+<h3 id="revenuedistribution"><a class="header-link" href="#revenuedistribution"></a>RevenueDistribution</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">id</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">描述</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">比例</td>
+</tr>
+</tbody></table>
+<h2 id="收益分配信息查询"><a class="header-link" href="#收益分配信息查询"></a>收益分配信息查询</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/i</span>nfo</code></pre><h4 id="请求参数-27"><a class="header-link" href="#请求参数-27"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接受者的挖矿帐户</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-28"><a class="header-link" href="#响应参数-28"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">data</td>
+<td align="left"><a href="#revenuedistribution">RevenueDistribution</a></td>
+<td align="left">repeated</td>
+<td align="left">配置列表</td>
+</tr>
+</tbody></table>
+<h2 id="分配收益给挖矿帐户"><a class="header-link" href="#分配收益给挖矿帐户"></a>分配收益给挖矿帐户</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/</span>add</code></pre><h4 id="请求参数-28"><a class="header-link" href="#请求参数-28"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">描述</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">比例</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-29"><a class="header-link" href="#响应参数-29"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">id</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">recipient</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接受者的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">描述</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">比例</td>
+</tr>
+</tbody></table>
+<h2 id="分配收益到钱包地址"><a class="header-link" href="#分配收益到钱包地址"></a>分配收益到钱包地址</h2>
+<p>当前仅支持 BTC，且仅向已批准主账户名下的子账户开放（主账户自身不可调用）。服务端会创建或复用内部接收账户，接口只返回真实钱包地址。API token 必须显式拥有 <code>revenue/distribution/add/to_address</code> 权限；每个分配账户每天最多创建 100 个新地址。</p>
+<pre class="hljs"><code>POST /v2/revenue/distribution/add/to_address</code></pre>
+<h4 id="分配收益到钱包地址-请求参数"><a class="header-link" href="#分配收益到钱包地址-请求参数"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种，目前仅支持 bitcoin</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接收钱包地址</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">描述，最多 64 个字符</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">比例，取值范围 (0, 100]，最多两位小数</td>
+</tr>
+</tbody></table>
+<h4 id="分配收益到钱包地址-响应参数"><a class="header-link" href="#分配收益到钱包地址-响应参数"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益分配记录 id，可用于调用删除接口</td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+<tr>
+<td align="left">address</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">收益接收钱包地址</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">描述</td>
+</tr>
+<tr>
+<td align="left">proportion</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left">比例</td>
+</tr>
+<tr>
+<td align="left">proxy_reused</td>
+<td align="left">bool</td>
+<td align="left"></td>
+<td align="left">是否复用了该地址之前创建的内部接收账户</td>
+</tr>
+</tbody></table>
+<h2 id="取消算力分配记录"><a class="header-link" href="#取消算力分配记录"></a>取消算力分配记录</h2>
+<pre class="hljs"><code>POST  <span class="hljs-regexp">/v2/</span>revenue<span class="hljs-regexp">/distribution/</span><span class="hljs-keyword">delete</span></code></pre><h4 id="请求参数-29"><a class="header-link" href="#请求参数-29"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">distributor</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">分配收益的挖矿帐户</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-30"><a class="header-link" href="#响应参数-30"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">reason</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="矿池信息"><a class="header-link" href="#矿池信息"></a>矿池信息</h1>
+<p>公共结构</p>
+<h3 id="luckyentry"><a class="header-link" href="#luckyentry"></a>LuckyEntry</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">key</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">float</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="block"><a class="header-link" href="#block"></a>Block</h3>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">height</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">block_hash</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">base_reward</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">total_reward</td>
+<td align="left">double</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">settle_timestamp</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="矿池出块分页"><a class="header-link" href="#矿池出块分页"></a>矿池出块分页</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/paging</code></pre><h4 id="请求参数-30"><a class="header-link" href="#请求参数-30"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">page</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">pagesize</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-31"><a class="header-link" href="#响应参数-31"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">lucky</td>
+<td align="left"><a href="#luckyentry">LuckyEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sum</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="时间范围内矿池出块"><a class="header-link" href="#时间范围内矿池出块"></a>时间范围内矿池出块</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/date_range</code></pre><h4 id="请求参数-31"><a class="header-link" href="#请求参数-31"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-32"><a class="header-link" href="#响应参数-32"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">lucky</td>
+<td align="left"><a href="#luckyentry">LuckyEntry</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sum</td>
+<td align="left">int32</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="用户pplns的收益详情"><a class="header-link" href="#用户pplns的收益详情"></a>用户pplns的收益详情</h2>
+<pre class="hljs"><code>POST <span class="hljs-regexp">/v2/</span>blocks/user</code></pre><h4 id="请求参数-32"><a class="header-link" href="#请求参数-32"></a>请求参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currency</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">币种</td>
+</tr>
+<tr>
+<td align="left">mining_user_name</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">用户</td>
+</tr>
+<tr>
+<td align="left">mining_reward</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">收益</td>
+</tr>
+<tr>
+<td align="left">start_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">开始时间</td>
+</tr>
+<tr>
+<td align="left">end_time</td>
+<td align="left">int64</td>
+<td align="left"></td>
+<td align="left">结束时间</td>
+</tr>
+</tbody></table>
+<h4 id="响应参数-33"><a class="header-link" href="#响应参数-33"></a>响应参数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">类型</th>
+<th align="left">备注</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">blocklist</td>
+<td align="left"><a href="#block">Block</a></td>
+<td align="left">repeated</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+    </article>
+  </body>
+</html>

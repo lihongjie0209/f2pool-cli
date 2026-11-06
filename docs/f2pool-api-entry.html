@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="en-US" class="light-theme">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="description"
+content="F2Pool is a geographically distributed mining pool, helping miners all over the globe secure Bitcoin and 40+ Proof&ndash;of&ndash;Work networks since 2013.">
+<meta name="baidu-site-verification" content="code-t0pgjhgFfQ" />
+
+<title>F2Pool: Leading Bitcoin Mining Pool</title>
+<link rel="shortcut icon" href="https://static.f2pool.com/static/images/favicon.ico?v=8ee83f956687f9feb9fcbf6d2633ce13c51ca649830b7fb297f1cd37ed3fb6f11683fd3ab6ff5ce544a8e00da900201a6b41abc40bdad22851717d9a9da128a8" type="image/x-icon" />
+<link href="https://static.f2pool.com/static/images/apple-icon-114.png?v=e743b5319f25c98a4b06f6fc924d06c4455db3d861e8a75efdf6aa40e61b36f1864e7b907bc6e65c9c48a718d6d8cef38cec60f5701699092c17465be37351bd" rel="apple-touch-icon-precomposed" />
+<link rel="stylesheet" href="https://static.f2pool.com/static/css/bootstrap-4.6.0.min.css?v=76519c5dcf422fadfa7070f3c356e1fc5d587a8b40d0b0c0f6a65229c5dc739fc233e8f5d0a5a36df12905cb1e5aba2aa47d19c2695276a846beca8b7de20d1c" type="text/css">
+<link rel="stylesheet" href="https://static.f2pool.com/static/css/fontawesome-6.6.0.all.min.css?v=7733e61ebfd6837531aca6e0f32ec3e47430744fb2afd3eee8b39e2cf39c5701bd392b2343ab4caad1bff77344619ee5a389bd39b5b9cd545288a450946b72b7" type="text/css">
+<link rel="stylesheet" href="https://static.f2pool.com/static/css/docs_v3.css?v=33fc5808addfe8ff05f01434e574bf154fb86b0525bd5eb4158739348f61638550cb9d30ca77e3e75c03684ca592e2096c692db2e9028517e47bb8a48112f251" type="text/css">
+
+<link rel="alternate" hreflang="en-US"
+href="https://www.f2pool.com/api_doc?lang=en_US" />
+
+<link rel="alternate" hreflang="es-ES"
+href="https://www.f2pool.com/api_doc?lang=es_ES" />
+
+<link rel="alternate" hreflang="uk-UK"
+href="https://www.f2pool.com/api_doc?lang=uk_UK" />
+
+<link rel="alternate" hreflang="zh-CN"
+href="https://www.f2pool.com/api_doc?lang=zh_CN" />
+
+<link rel="alternate" hreflang="zh-TW"
+href="https://www.f2pool.com/api_doc?lang=zh_TW" />
+
+<script type="text/javascript" src="https://static.f2pool.com/static/js/template-web.js?v=25b6571073adf4334f8c4b2cada919dab20ab5f6b6009a4383261419bd8a9b75cf99f9a01f8fdf2e69cc15d04a494357d14f6c23777a978320cf75977b7f97d3"></script>
+<!--[if lt IE 9]><script src="https://static.f2pool.com/static/js/html5.js?v=41b4cbbf98687fbfe4044c23c727d49c85dde8fa3b83b12b5169c26b25aa24bdda08426605c82cd11e9f944aa782040f62f0afb14f9cb732d16713be386ef700"></script><![endif]-->
+
+<link rel="stylesheet" type="text/css" href="https://static.f2pool.com/static/css/api-doc-index.css?v=d15feaefdec40f180f9d77a27cb341d5e04da7bc2fbf14eb384fa179ae8dcaab0ea28c1525f005a3054a5a8b21ed726dd378c43f25313e6f3f63f9aee562d6ec">
+
+<!-- Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7E163DS1SV"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7E163DS1SV');
+</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+var theme = localStorage.getItem("color-theme") || 'light';
+if (theme == "dark") {
+document.querySelector('html').classList.remove('light-theme');
+document.querySelector('html').classList.add('dark-theme');
+}
+</script>
+<script type="text/javascript">
+if (window.top !== window.self){ window.top.location = window.location; }
+var ieVer = msieversion();
+if (ieVer && ieVer < 10) {
+alert('You are using an unsupported browser, please switch to Chrome or Firefox for a better experience.');
+}
+function msieversion() {
+var ua = window.navigator.userAgent;
+var msie = ua.indexOf("MSIE ");
+if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+}
+return false;
+}
+</script>
+<script src="https://static.f2pool.com/static/js/docs.js?v=f0ebbac6c513f6f8194772c81f2c3b86bbe928489dbbe9915768f1957981aef45b4cc5c93086ce28626df075ac3f5448eefef83410babc70dce507e465bb7c53"></script>
+
+</head>
+<body
+class=" lang-en_US">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH8KKCQ" height="0" width="0"
+style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div
+class="page-wrapper has-tips lang-en_US">
+
+
+
+
+
+
+
+
+
+
+<header
+class="header  header-white header-fix-top header-no-banner  ">
+<nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+<div class="navbar-brand-container d-flex align-items-center">
+<div class="navbar-brand logo">
+<a href="https://www.f2pool.com/"></a>
+
+</div>
+</div>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div class="navbar-collapse-inner d-block d-lg-flex">
+
+
+
+
+
+
+
+<div class="navbar-nav mr-auto order-lg-0">
+
+<a class="nav-item nav-link fire-item "
+href="/user/tx-acc">
+Tx Accelerator
+</a>
+
+<a class="nav-item nav-link "
+href="/miners">
+Popular Miners
+</a>
+
+<a class="nav-item nav-link pow-link "
+href="/coins">
+PoW Rankings
+</a>
+
+<a class="nav-item nav-link halving-link d-block d-lg-none "
+href="/halving">
+Halvings
+</a>
+
+<div class="nav-item nav-link dropdown dropdown-global-more staking-dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown">
+Staking <span class="fire-icon"></span><i class="far fa-angle-down"></i>
+</a>
+<div class="dropdown-menu">
+<a class="dropdown-item "
+href="/staking/networks/ethereum">
+<div class="d-flex align-items-center">
+<div class="icon ethereum"></div>
+<div class="name flex-grow-1">Ethereum</div>
+<div class="label">
+<i class="fa-solid fa-bolt-lightning"></i>
+MAX MEV
+</div>
+</div>
+</a>
+<a class="dropdown-item "
+href="/staking/networks/solana">
+<div class="d-flex align-items-center">
+<div class="icon solana"></div>
+<div class="name flex-grow-1">Solana</div>
+<div class="label">
+<i class="fa-duotone fa-solid fa-coins"></i>
+MEV
+</div>
+</div>
+</a>
+<a class="dropdown-item "
+href="/staking/networks/babylon">
+<div class="d-flex align-items-center">
+<div class="icon babylon"></div>
+<div class="name flex-grow-1">Babylon Bitcoin<span class="fire-icon"></span></div>
+</div>
+</a>
+<a class="dropdown-item "
+href="/staking/networks/babylon-genesis">
+<div class="d-flex align-items-center">
+<div class="icon babylon-genesis"></div>
+<div class="name flex-grow-1">Babylon Genesis</div>
+</div>
+</a>
+<a class="dropdown-item "
+href="/staking/networks">
+<div class="d-flex">
+<div class="icon"><i class="fa-regular fa-list"></i></div>
+<div class="name flex-grow-1">All networks (11)</div>
+</div>
+</a>
+</div>
+</div>
+
+
+
+
+<div class="nav-item nav-link dropdown dropdown-global-more more-dropdown">
+<a class="dropdown-toggle" style="position: relative" data-toggle="dropdown">
+<span>More</span><i class="far fa-angle-down"></i>
+</a>
+<div class="dropdown-menu">
+
+
+<a class="dropdown-item pow-item "
+href="/coins">
+PoW Rankings
+</a>
+
+
+<a class="dropdown-item "
+href="/download">
+App
+</a>
+
+
+
+<a class="dropdown-item "
+href="/tools">
+Miner Tools
+</a>
+
+<a class="dropdown-item d-none d-lg-inline-block "
+href="/halving">
+Halvings
+</a>
+
+<a class="dropdown-item d-none d-lg-inline-block "
+href="/statistics">
+Blocks Mined
+</a>
+<a class="dropdown-item "
+href="/zendesk/help">
+Help
+</a>
+</div>
+</div>
+
+</div>
+
+
+
+
+<div
+class="global-lang-container d-block d-lg-none">
+<div class="lang-theme-group d-flex justify-content-center align-items-center">
+<div class="lang-container">
+<div class="dropdown dropdown-global-lang">
+<span class="dropdown-toggle" style="position: relative" data-toggle="dropdown">
+
+<span class="language-toggle-text">English</span>
+
+</span>
+<div class="dropdown-menu">
+
+<a class="dropdown-item change-lang active" href="#"
+data-lang="en_US">English</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="es_ES">Español</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="uk_UK">Українська</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="zh_CN">简体中文</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="zh_TW">繁體中文</a>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="nav-item nav-link icon-color-theme icon-color-theme-mobile d-block d-lg-none">
+<div class="icon-dark">
+<i class="fas fa-moon"></i>&nbsp;<span>Dark Mode</span>
+</div>
+<div class="icon-light">
+<i class="fa-solid fa-brightness"></i>&nbsp;<span>Light Mode</span>
+</div>
+</div>
+
+
+
+
+
+<div class="sign-container d-flex d-lg-block justify-content-center order-lg-8">
+
+<a class="btn-signup" href="/user/signup">Create Account</a>
+
+<a class="btn-signin" href="/user/signin">Sign In</a>
+</div>
+
+
+</div>
+</div>
+
+<div class="navbar-icons d-flex align-items-center">
+
+
+
+<span class="icon-form-search-toggle" data-toggle="modal" data-target="#global-search-modal">
+<i class="fa fa-search"></i>
+</span>
+
+
+
+<div
+class="global-lang-container d-none d-lg-flex align-items-center">
+<div class="lang-theme-group d-flex justify-content-center align-items-center">
+<div class="lang-container">
+<div class="dropdown dropdown-global-lang">
+<span class="dropdown-toggle" style="position: relative" data-toggle="dropdown">
+
+<i class="fa-light fa-globe icon-language"></i>
+
+</span>
+<div class="dropdown-menu">
+
+<a class="dropdown-item change-lang active" href="#"
+data-lang="en_US">English</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="es_ES">Español</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="uk_UK">Українська</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="zh_CN">简体中文</a>
+
+<a class="dropdown-item change-lang " href="#"
+data-lang="zh_TW">繁體中文</a>
+
+</div>
+</div>
+</div>
+
+<div class="icon-color-theme" type="button">
+<div class="icon-dark">
+<i class="fas fa-moon"></i>
+</div>
+<div class="icon-light">
+<i class="fa-solid fa-brightness"></i>
+</div>
+</div>
+
+</div>
+</div>
+
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="fa fa-bars"></span>
+</button>
+</div>
+</nav>
+
+
+
+<div id="headerTips" class="header-tips ticker">
+<ul>
+
+<li><span class="icon-announce"></span>PRL+NOCK merged mining launched
+<a class="more-tips" href="https://f2pool.zendesk.com/hc/en-us/sections/360013149492"
+target="_blank">More ></a>
+</li>
+
+</ul>
+</div>
+
+
+</header>
+<div class="page-main">
+
+<div class="page-api-doc-index container-fluid">
+<div class="row justify-content-center">
+<div class="main col-12 col-xxl-10 d-block d-lg-flex align-items-lg-start">
+<ul class="sidebar nav nav-pills d-block" role="tablist">
+<li class="nav-item">
+<a class="nav-link active d-flex align-items-center" id="v2-tab" data-toggle="pill" data-target="#v2"
+aria-controls="v2">
+<img class="d-none d-lg-inline-block" src="https://static.f2pool.com/static/images/icon-api-doc.png?v=00127f8ef311f6dbc98e2488406e29a427e084d66e5d67f62432bd1fb325129fdc71693933ae9f34edf85728df41885e59e125d893d00dc8d28720b8e51fa74c">API Docs
+v2
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link d-flex align-items-center" id="v1-tab" data-toggle="pill" data-target="#v1"
+aria-controls="v1">
+<img class="d-none d-lg-inline-block" src="https://static.f2pool.com/static/images/icon-api-doc.png?v=00127f8ef311f6dbc98e2488406e29a427e084d66e5d67f62432bd1fb325129fdc71693933ae9f34edf85728df41885e59e125d893d00dc8d28720b8e51fa74c">API Docs
+v1
+</a>
+</li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane doc fade show active" id="v2" role="tabpanel" aria-labelledby="v2-tab">
+<iframe class="doc-container"
+src="https://api.f2pool.com/v2/doc/en.html"
+title="api v2 api doc">
+</iframe>
+</div>
+<div class="tab-pane doc" id="v1" role="tabpanel" aria-labelledby="v1-tab">
+
+
+<div class="doc-container" title="api v2 api doc">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<footer class="footer container-fluid">
+<div class="row justify-content-center">
+<div class="col-12 col-md-11 col-xl-10 main-info">
+<div class="row no-gutters">
+<div class="col-12 col-lg-4 order-1 order-sm-0 d-flex flex-column align-items-center footer-main">
+<div class="left-part d-flex flex-column text-center text-lg-left">
+<div class="footer-social-media order-sm-2 order-lg-2">
+<h3 class="d-block d-sm-none">Social Media</h3>
+<ul class="footer-social text-left text-sm-center text-lg-left">
+<li>
+<a href="https://x.com/f2pool" target="_blank" rel="nofollow noopener noreferrer">
+<span class="social-icon twitter"><i class="fa-brands fa-x-twitter"></i></span>
+</a>
+</li>
+<li>
+<a href="https://www.youtube.com/channel/UCpOxf600N5n8HpyVejvEJMg" target="_blank"
+rel="nofollow noopener noreferrer">
+<span class="social-icon youtube"><i class="fa-brands fa-youtube"></i></span>
+</a>
+</li>
+<li>
+<a href="https://t.me/f2poolreal" target="_blank" rel="nofollow noopener noreferrer">
+<span class="social-icon telegram"><i class="fab fa-telegram-plane"></i></i></span>
+</a>
+</li>
+<li>
+<a href="https://www.reddit.com/r/f2pool" target="_blank" rel="nofollow noopener noreferrer">
+<span class="social-icon reddit"><i class="fab fa-reddit"></i></span>
+</a>
+</li>
+<li>
+<a href="https://discord.gg/fhjeWrmdK9" target="_blank" rel="nofollow noopener noreferrer">
+<span class="social-icon discord"><i class="fab fa-discord"></i></span>
+</a>
+</li>
+<li>
+<a href="https://www.instagram.com/f2poolofficial/" target="_blank"
+rel="nofollow noopener noreferrer">
+<span class="social-icon instagram"><i class="fab fa-instagram"></i></i></span>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/f2pool/" target="_blank"
+rel="nofollow noopener noreferrer">
+<span class="social-icon linkedin"><i class="fab fa-linkedin"></i></i></span>
+</a>
+</li>
+</ul>
+</div>
+<div
+class="logo-soc-part d-flex d-sm-block d-lg-flex align-items-lg-center justify-content-between order-lg-1">
+<div class="logo-part">
+<a class="footer-logo" href="/">
+<img src="https://static.f2pool.com/static/images/icon-logo-blue.png?v=38714aba173cdf838dc7e5f6ef103ddb8cf4239d6bccb648f4165a4218ec902452ecea43cba118c8138ae89ca061dd79ebe362573e53fbd0f7b17712f72e68ae">
+</a>
+<div class="copyright d-lg-none">
+© 2013–2026 F2Pool. All rights reserved.
+</div>
+</div>
+<div class="soc-part">
+<img src="https://static.f2pool.com/static/images/soc.png?v=478d48859d2e2bebb3dd5d6d5cee56c00eedfa91458161be2bda23465d44e47b07889090cbd0d60ee4c586f3d3901ff54ab06998ba0c253e35bf224fa7ce2018">
+</div>
+</div>
+<div class="copyright d-none d-lg-block order-lg-3">
+© 2013–2026 F2Pool. All rights reserved.
+</div>
+</div>
+</div>
+<div class="col-12 col-lg-8 order-0 order-sm-1 container-links">
+<div class="row no-gutters">
+<div class="col-12 col-sm-3 text-center">
+<div class="footer-link-item">
+<h3>Products</h3>
+<div class="footer-link-item-content">
+
+<a href="/download" target="_blank">App Download</a>
+
+<a href="/coins" target="_blank">PoW Rankings</a>
+<a href="/miners" target="_blank">Popular Miners</a>
+
+
+<a href="/user/tx-acc" target="_blank">Tx Accelerator</a>
+
+</div>
+</div>
+</div>
+
+<div class="col-12 col-sm-3 text-center">
+<div class="footer-link-item">
+<h3>Services</h3>
+<div class="footer-link-item-content">
+<a href="/api_doc" target="_blank">API Docs</a>
+
+
+</div>
+</div>
+</div>
+
+<div class="col-12 col-sm-3 text-center">
+<div class="footer-link-item">
+<h3>Helps</h3>
+<div class="footer-link-item-content">
+<a href="https://f2pool.io/mining/guides/"
+target="_blank">Mining Tutorial</a>
+<a href="https://f2pool.zendesk.com/hc/en-us/sections/360013149492"
+target="_blank">Announcements</a>
+
+<a href="https://f2pool.zendesk.com/hc/en-us/categories/4406716616461-FAQ" target="_blank">FAQ</a>
+
+
+<a href="/zendesk/help" target="_blank">Submit Request</a>
+
+</div>
+</div>
+</div>
+<div class="col-12 col-sm-3 text-center">
+<div class="footer-link-item">
+<h3>About F2Pool</h3>
+<div class="footer-link-item-content">
+<a href="/aboutus" target="_blank">About Us</a>
+
+<a href="/joinus" target="_blank">Join Us</a>
+
+<a href="/terms" target="_blank">Terms of Service</a>
+<a href="/cdn-cgi/l/email-protection#046671776d6a617777446236746b6b682a676b69">Partnerships</a>
+<a href="/cdn-cgi/l/email-protection#73000603031c0107331541031c1c1f5d101c1e">Contact Us</a>
+<a href="/mediatool" target="_blank">Media Kit</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<div class="btn-global-to-top"></div>
+<div class="btn-btc-staking-trigger"></div>
+</div>
+<div class="modal fade modal-global-search" id="global-search-modal">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<span class="close" data-dismiss="modal" aria-label="Close"></span>
+<div class="global-search-form-container text-center">
+<img class="d-none d-lg-inline-block" src="https://static.f2pool.com/static/images/icon-global-search-form.png?v=c907fce0e7550a3427f47baa122bead800c6b74d0f51bd0700a079053cf335d732fafdd2c802b61bbdd6af52b0f73b4f95ba758fbc4bbf2dedc7c2b55e866c0e"
+style="width: 176px;" />
+<h2 class="d-none d-lg-block">Search Address</h2>
+<form action="/jump" id="addressSearchForm" class="form-nav-search form-inline">
+<input type="hidden" name="currency" id="input-currency"
+value="SIA"
+>
+<div class="input-group">
+
+<div class="input-group-prepend" id="currency-toggle">
+<span
+class="btn btn-prepend pr-0 d-flex align-items-center justify-content-center">SC</span>
+</div>
+
+<input id="input-address" class="input-md form-control" type="text" name="miner-address"
+placeholder="Input your wallet address">
+<i class="fa fa-times-circle icon-clear-search"></i>
+<div class="d-none d-lg-flex input-group-append">
+<button class="btn" type="submit">Go</button>
+</div>
+</div>
+<div class="search-btn-container d-inline-block d-lg-none">
+<button class="btn" type="submit">Go</button>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade modal-global-footer" id="globalFooterModal">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<span class="close" data-dismiss="modal" aria-label="Close"></span>
+<div class="container">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade modal-ver-remind" id="verRemindModal" tabindex="-1" role="dialog"
+aria-labelledby="vipModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<p>Due to the recent development in local regulation, we will no longer be able to provide you with mining pool services. Your pending payout will be safe, and the final payout will be sent automatically as usual. If you have not filled in the payout address, please do so before 2021-12-30. We plan to shut down our services in mainland China, excluding Hong Kong, Macau, and Taiwan, by 2021-12-31 16:00 UTC. Please contact us with supporting documents if our system incorrectly identifies your country of origin.</p>
+<div class="actions">
+<button class="btn btn-bar btn-submit" type="submit">Verification</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade modal-info" id="btcStakingInfoModal" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<h5 class="modal-title">BTC Staking </h5>
+<span class="close" data-dismiss="modal" aria-label="Close"></span>
+<div class="content content-text text-center">
+Babylon BTC Staking Phase 2 will go live at Babylon Genesis block 139,920, estimated to occur on 2025-04-24 13:11 UTC. By staking BTC, participants can earn Babylon token (BABY) rewards.
+</div>
+<div class="form-actions d-flex justify-content-center">
+<a href="/staking/networks/babylon">
+<button type="button" class="btn-submit btn-bar">View Details</button>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade modal-status" id="statusModal" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<span class="close" data-dismiss="modal" aria-label="Close"></span>
+<div class="text-center">
+<span class="icon"><i class="fas fa-check"></i></span>
+<div class="status-text"></div>
+<div class="secondary-text" style="display: none;"></div>
+<button type="button" class="btn btn-bar btn-submit" data-dismiss="modal"
+aria-label="Close">OK</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade modal-status modal-status-alert" id="statusAlertModal" tabindex="-1" role="dialog">
+<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+<div class="text-center">
+<span class="icon"><i class="fa-solid fa-xmark"></i></span>
+<div class="status-text"></div>
+<div class="secondary-text" style="display: none;"></div>
+<button type="button" class="btn-submit btn-bar" data-dismiss="modal"
+aria-label="Close">OK</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/html" id="tpl-popup-message">
+<div class="modal fade modal-popup-message" id="popup-message-modal-[[id]]" data-next-id="[[ next_id ]]" data-get-message-num = [[ get_message_num ]]>
+<div class="modal-dialog modal-sm" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<div class="title">[[title]]</div>
+<div class="content"></div>
+<div class="time">[[created_at]]</div>
+<div class="actions">
+<button class="btn btn-bar btn-submit" data-dismiss="modal" aria-label="Close">Got it</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</script>
+</body>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/jquery-3.7.1.min.js?v=c503341fa3a7176fd10bd8cd7a5717c8faf971f87fa0c158f2d94fcd484ae3ed5031f49414dae833fb806b7365b5699c21d2e655376f69adb052b22f6f6982a7"></script>
+
+<script type="text/javascript" src="https://static.f2pool.com/static/js/popper-1.16.1.min.js?v=705c7e0df9657b5b15f5fdabe9509d23cb838e43cce8fcc4c8fdafa36ae651b272e7b7f70e76f43860feebded3e8362c146764636383af555ae0983e33b3dc30"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/bootstrap-4.6.0.min.js?v=5ca6bd1de99dcb5522dca486809760332625520d6033e4212fa7279724dedaaccc0989b89c06753ec55ead0cd34d7ce89d447e766b301ea8093eec02ab531a02"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/cookie.js?v=91370ef42468197800bc6fdc78cfd025237c3283545cc924301ddba763a53df5aef1654b6b4a7d5fe52eaf40f63778c1e0c379be61bb136872a7c84e576321f4"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/jquery.simpleTicker.js?v=acf75d49f53489e8ec9034860eddc01390a06b710174a20df6cea52db3110b1def23e90de2fc825398d1de0ed6ea920b6fb9fc622b57848e7876b41879994b38"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/simple-ticker-patch.js?v=36157f8ca82952347f730b45558381875586def534e7f79d7d3ff6154d2686e633c14c8f92ba315d10842b5ef097e067842ff71ff93cf327f938f0b17cd63709"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/big.min.js?v=133e8effada75c8b866e6f27465d5b587544bdd416c953fbe7881f0f75ec89c6bb021b16009ce34b37c0b95d431353aad09bd01ca6e97cea2b29df60154e5079"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/decimal.js?v=5ecc27b4f611cfcbac86cb1303788c88516423bb2aa400f3e5eace6f6dc02dd1b6136c5e38709d9457b42fd34e62a5237cac06d76e7098153c4835192ff9feb4"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/currency.js?v=6cc3c52dd18fdffef6cdba32e0f454a7878c287c0b41e0469d92c8385e3f76d285b46e8dd0bf02851f853e1b70281e8a2adaba9b276509cfa657f0eee0c6acaa"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/moment.min.js?v=16f1b58ddccafa129d6427428479f300d5d8396fbaf169168d3f81349debb2dc26ff7f8089ff5c1b7d519a32986892dd13757948dff6561e8916a90e8fb2f483"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/fp-common-utils.js?v=1c81521f0ac61c3b7e6fbd508094d659a5c09a5546b77278640a94d801d0ed28c4005013864f3cfe732d0adf7cb838c9ea17684456cd3e8cc39472b6916a4efd"></script>
+<script type="text/javascript" src="https://static.f2pool.com/static/js/simple-web-authn.js?v=09e46f3ac80eba030934565765eade03a1fab03bad7d219b08520e5b2b6eccd07626b1bd23c9545f7346fe4dd91d8b5585f0b85c9ad4249cff391f6a5278c504"></script>
+
+<script
+id="__ada"
+data-lazy
+data-handle="f2pool-gen"
+src="https://static.ada.support/embed2.js"
+></script>
+
+<script type="text/javascript">
+$(function() {
+CURRENCY_CONF.language = 'en_US';
+CURRENCY_CONF.usd_cny = Number('6.6739' || 6.3);
+Big.DP = 40;
+template.defaults.rules[1].test = /\[\[([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*\]\]/;
+//halvingCountDown();
+// header-tip
+$.simpleTicker($('#headerTips'), {
+effectType: 'roll',
+delay: 5000,
+speed: 1000
+});
+$('[data-toggle="tooltip"]').tooltip();
+//kyc status
+
+
+updateHeaderTheme();
+// address search
+updateAddressSearch();
+bindAddressSearch();
+
+getMiningUserHashrate();
+
+bindNavbarCollapse();
+bindDropdownClose();
+bindChangeLanguage();
+bindFooter();
+bindScrollToTop();
+bindInputGroupEffect();
+
+
+setWidget();
+
+
+bindLoginFree();
+bindUserSearch();
+bindAccountDisplayToggle();
+bindBtcStakingInfoModel();
+//color todo:
+UTILS_FUN.bindThemeToggle();
+if($(window).width()< 541) {
+$('.dropdown-global-currency .dropdown-menu.dropdown-menu-mobile').css('width', $(window).width()-16);
+}
+function bindAddressSearch() {
+var $container = $('.global-search-form-container');
+$('#input-address').on('input', updateAddressSearch);
+$container.find('.currency-list-menu a').on('click', function(e) {
+e.preventDefault();
+var currency = $(this).text();
+var urlName = $(this).data('urlname');
+$('#addressSearchForm button[type="submit"]').prop('disabled', $('#input-address').val() === '');
+$('#currency-toggle .btn').text(currency);
+$('#input-currency').val(urlName.toUpperCase());
+});
+$container.find('.icon-clear-search').on('click', function() {
+$('#input-address').val('');
+$(this).hide();
+updateAddressSearch();
+});
+}
+// click outside to close dropdown
+function bindDropdownClose() {
+$(document).on('click touchstart', function (e) {
+var $toggle = $('.footer-pop, .btn-app-download-ios, .btn-app-download-android');
+if (!$toggle.is(e.target) && $toggle.has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+(($toggle.popover('hide').data('bs.popover')||{}).inState||{}).click = false;
+}
+});
+}
+function bindNavbarCollapse() {
+$('.page-wrapper > .header .navbar-collapse').on('show.bs.collapse', function(e) {
+$(this).parents('.header').addClass('collapse-show');
+}).on('hidden.bs.collapse', function(e) {
+$(this).parents('.header').removeClass('collapse-show');
+updateHeaderClass();
+});
+}
+function updateHeaderTheme() {
+var $headerIn = $('.layout-header-in');
+var $header = $('header.header');
+if ($headerIn.length > 0) {
+$(window).on('scroll', function() {
+if ($header.hasClass('collapse-show')) return;
+updateHeaderClass();
+});
+}
+}
+function updateHeaderClass() {
+var $headerIn = $('.layout-header-in');
+var $header = $('header.header');
+if ($(document).scrollTop() >= $headerIn.innerHeight() - ($(window).width() > 991 ? ($('.page-index').length > 0 ? 120 : 10) : 0)) {
+if (!$header.hasClass('header-white')) {
+$header.addClass('header-white header-fix-top animate');
+$header.trigger('header.fixtop.on');
+}
+} else {
+if ($header.hasClass('header-white') && !$header.hasClass('header-no-banner')) {
+$header.removeClass('header-white header-fix-top animate');
+$header.trigger('header.fixtop.off');
+}
+}
+}
+function updateAddressSearch() {
+var currencyArr = [], urlName, displayCode;
+var regxArr = {"sc": "[0-9A-Fa-f]{76}"};
+var $container = $('.global-search-form-container');
+var $btnCurrencyToggle = $("#currency-toggle .btn");
+var $inputAddress = $('#input-address');
+var $inputCurrency = $('#input-currency');
+var $btnSearchSubmit = $('#addressSearchForm button[type="submit"]');
+var $listMenu = $container.find('.currency-list-menu');
+var $btnClearSearch = $container.find('.icon-clear-search');
+var txt = $inputAddress.val().replace(/\s/g, '');
+$inputAddress.val(txt);
+
+
+$btnClearSearch.toggle(txt !== '');
+$btnSearchSubmit.prop('disabled', !RegExp('^' + regxArr['sc'] + '$').test(txt));
+return;
+
+if (!txt) {
+$btnCurrencyToggle.text('Currency');
+$btnSearchSubmit.prop('disabled', true);
+$btnClearSearch.hide();
+$listMenu.find('.currency-item').show();
+return;
+} else {
+$btnClearSearch.show();
+}
+Object.keys(regxArr).forEach(function(key) {
+if (RegExp('^' + regxArr[key] + '$').test(txt)) {
+var $item = $('.currency-list-menu .' + key);
+currencyArr.push(key);
+urlName = $item.data('urlname');
+displayCode = $item.data('displayCode');
+}
+});
+if (currencyArr.length == 1) {
+$btnCurrencyToggle.text(displayCode);
+$btnSearchSubmit.prop('disabled', false);
+$inputCurrency.val(urlName && urlName.toUpperCase() || '');
+$listMenu.removeClass('show');
+} else if (currencyArr.length > 1) {
+$btnCurrencyToggle.text('Currency');
+$btnSearchSubmit.prop('disabled', true);
+$container.find('.currency-list-menu .currency-item').filter(function() {
+var isMatch = $.inArray($(this).data('key'), currencyArr) > -1;
+if (isMatch) $(this).show();
+return !isMatch;
+}).hide();
+$listMenu.addClass('show');
+} else if (txt) {
+$btnCurrencyToggle.text('Currency');
+$btnSearchSubmit.prop('disabled', true);
+$container.find('.currency-list-menu .currency-item').show();
+$listMenu.addClass('show');
+}
+}
+// change language
+function bindChangeLanguage() {
+$('body').on('click', '.change-lang', function(e) {
+e.preventDefault();
+Cookies.remove('lang');
+Cookies.set('lang', $(this).data('lang'), {domain: ".f2pool.com"});
+location.reload();
+});
+}
+// footer popover
+function bindFooter() {
+if ($(window).width() > 991) {
+$('.footer-pop').each(function() {
+$(this).popover({
+html: true,
+trigger: 'hover click',
+placement: 'top',
+container: $(this),
+template: '<div class="popover footer-popover"><div class="popover-body"></div></div>',
+content: function() {
+return $(this).find('.footer-pop-content').prop('outerHTML');
+}
+}).on('show.bs.popover', function() {
+$(this).addClass('active');
+}).on('hide.bs.popover', function() {
+$(this).removeClass('active');
+});
+});
+} else {
+var $modal = $('#globalFooterModal');
+$('.footer-pop').on('click', function() {
+$modal.find('.container').html($(this).find('.footer-pop-content').clone().css('display', 'block'));
+$modal.modal({ show: true });
+});
+}
+}
+function bindScrollToTop() {
+var $window = $(window);
+var $doc = $(document);
+var $btn = $('.btn-global-to-top');
+if ($doc.scrollTop() > 800) {
+$btn.addClass('animate');
+}
+$btn.on('click', function() {
+window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+});
+$window.on('scroll', function() {
+var scrollTop = $doc.scrollTop();
+if (!$btn.hasClass('animate') && scrollTop > 800) {
+$btn.addClass('animate');
+} else if ($btn.hasClass('animate') && scrollTop < 800) {
+$btn.removeClass('animate');
+}
+var maxScroll = $doc.height() - $window.height() - 150
+if(scrollTop > 800 || ($window.width() < 800 &&scrollTop > maxScroll)){
+$('#ada-entry').hide();
+} else {
+$('#ada-entry').show();
+}
+});
+}
+function getMiningUserHashrate() {
+var $dropdown = $('.dropdown-global-user-menu');
+var $item, data, content, userName, hashData;
+$dropdown.on('show.bs.dropdown', function() {
+$.post({
+url: '/multi-user-hashrate',
+data: {
+currency_code: 'btc',
+}
+}, function(res) {
+data = res.data && res.data.users;
+if (!data) return;
+$dropdown.find('.dropdown-menu .dropdown-user').each(function() {
+var $item = $(this);
+var itemData = data[$item.data('name')];
+if (!itemData) {
+$item.remove();
+return;
+}
+hashData = (itemData.hashrate || '0.00') + ' ' + $item.data('suffix');
+$item.find('.mining-user-hashrate').text(hashData);
+$item.toggleClass('zero-hash', !Number(itemData.hashrate));
+});
+});
+});
+}
+function bindUserSearch() {
+var $searchIpt= $('.search-account-input');
+var searchKey;
+$('.mining-user-section .item-common').each(function(idx) {
+$(this).data('index', idx);
+});
+$searchIpt.on('input', function() {
+searchKey = $(this).val();
+updateUserMenu(searchKey);
+});
+}
+function updateUserMenu(searchKey) {
+var $section = $('.mining-user-section');
+var arr = [];
+searchKey = searchKey.toLowerCase();
+$section.find('.item-search').each(function() {
+$(this).removeClass('item-search');
+});
+$section.find('.dropdown-item-user').sort(function(a, b) {
+var $a = $(a);
+var $b = $(b);
+var idxA = $a.data('index');
+var idxB = $b.data('index');
+return idxA === idxB ? ($a.hasClass('item-common') ? -1 : 1) : (idxA - idxB);
+}).appendTo($section);
+if (searchKey !== '') {
+$section.find('.item-common').each(function(idx, el) {
+var $this = $(this);
+if ($this.data('name').toLowerCase().match(searchKey) || ($this.data('desc') && $this.data('desc').toString().toLowerCase().match(searchKey))) {
+arr.push($(this).addClass('item-search'));
+}
+});
+$section.prepend(arr);
+}
+}
+function bindAccountDisplayToggle() {
+var $toggle = $('#accountDisplayToggle');
+if (!$toggle.length) return;
+var $wrapper = $('.dropdown-global-user-menu .dropdown-toggle span[data-account-name]');
+if (!$wrapper.length) return;
+var accountName = UTILS_FUN.escapeHtml($wrapper.attr('data-account-name'));
+var accountDesc = UTILS_FUN.escapeHtml($wrapper.attr('data-account-desc'));
+var $displayText = $wrapper.find('.account-display-text');
+var $label = $toggle.find('.toggle-mode-label');
+var labelName = $toggle.data('label-name');
+var labelDesc = $toggle.data('label-desc');
+var mode = 'name';
+function applyMode() {
+if (mode === 'name') {
+$displayText.text(accountName);
+$label.text(labelName);
+} else {
+$displayText.text(accountDesc || accountName);
+$label.text(labelDesc);
+}
+}
+applyMode();
+$toggle.on('click', function(e) {
+e.preventDefault();
+e.stopPropagation();
+mode = (mode === 'desc') ? 'name' : 'desc';
+Cookies.set('account-display-mode', mode, {domain: ".f2pool.com"});
+applyMode();
+$(document).trigger('accountDisplayModeChange', mode);
+});
+}
+function bindInputGroupEffect() {
+// focus effect
+$('body').on('focus', '.input-group input[type="text"].form-control', function() {
+$(this).parents('.input-group').addClass('active');
+}).on('blur', '.input-group input[type="text"].form-control', function() {
+$(this).parents('.input-group').removeClass('active');
+});
+}
+function bindLoginFree() {
+$('.dropdown-global-currency .dropdown-item.special').on('click', function(e) {
+e.preventDefault();
+$('#global-search-modal').modal('show');
+});
+}
+function bindAppDownload() {
+if ($(window).width() > 991) {
+$('.btn-app-download-ios').each(function() {
+$(this).popover({
+html: true,
+trigger: 'click',
+placement: 'top',
+container: $(this).parents('.download-btns').length > 0 ? $(this).parents('.download-btns') : 'body',
+template: '<div class="popover app-download-popover"><div class="popover-body"></div></div>',
+content: '<img src="https://static.f2pool.com/static/images/apple-store-qrcode.png?v=7cafc9c1567ea453307480c66b6bc22980f933276d681346a4a7302343b6b298e041797efe89f6a988db982e5b5607364381942f536050ad0607d1adcb71eaf9">', //如果app被下架，使用download-guide-qrcode.png二维码
+});
+});
+} else {
+$('.btn-app-download-ios').on('click', function() {
+location.href = "https://itunes.apple.com/app/f2pool/id1403702113";
+});
+}
+}
+function bindAndroidDownload() {
+if ($(window).width() > 991) {
+$('.btn-app-download-android').each(function() {
+$(this).popover({
+html: true,
+trigger: 'click',
+placement: 'top',
+container: $(this).parents('.download-btns').length > 0 ? $(this).parents('.download-btns') : 'body',
+template: '<div class="popover app-download-popover"><div class="popover-body"></div></div>',
+content: '<img src="https://static.f2pool.com/static/images/download-qrcode-up.png?v=7c6e9ca31a97a32b9c91b134024b1c767379cde7d2f1fba0b77f4c37d3af5ef069e51d10437c555b2a721ec4569f418763be2aa4dc5a1a909acf857938d4c858">',
+});
+});
+} else {
+$('.btn-app-download-android').on('click', function() {
+location.href = "https://static.f2pool.com/assets/native-app/package/f2pool-295.apk?t=5ff4dbbd6d210e6606f9e77970c086f3";
+});
+}
+}
+function setWidget() {
+var adaLan = ("en-US").toLowerCase();
+window.adaEmbed.start({
+handle: "f2pool-gen",
+language: (adaLan.startsWith('en') || adaLan == 'uk-uk') ? 'en' : adaLan == 'zh-cn' ? 'zh' : adaLan,
+adaReadyCallback: ({ isRolledOut }) => {
+var $doc = $(document);
+var $win = $(window);
+var maxScroll = $doc.height() - $win.height() - 150
+if ($doc.scrollTop() > 800 || ($win.width() < 800 && $doc.scrollTop() > maxScroll)) {
+$('#ada-entry').hide();
+}
+},
+});
+window.adaEmbed.setMetaFields({
+username: null,
+email: null,
+});
+}
+function bindVerRemindModal() {
+$('#verRemindModal').on('show.bs.modal', function(){
+var $btn = $('#verRemindModal').find('.btn-submit');
+if( $(window).width() < 992 ){
+$btn.text('Please start verification using a desktop browser').prop('disabled', true).css('color', '#2889fc');
+} else {
+$btn.text('Verification').prop('disabled', false).css('color', '#ffffff');
+}
+postCloseKycPopup();
+})
+$('#verRemindModal').on('click', '.btn-submit', function(){
+var $btn = $(this);
+var isAccountPage = $('body').has('.page-user-account').length > 0 ? true : false;
+if(!isAccountPage && !$btn.attr('disabled')) {
+location.href = '/user/account#tab-verification';
+} else if (isAccountPage && !$btn.attr('disabled')) {
+$('#verRemindModal').modal('hide');
+$('a[href="#tab-verification"]').tab('show');
+}
+})
+}
+function postCloseKycPopup() {
+$.ajax({
+type: 'GET',
+url: 'home',
+data: {
+action: 'close_kyc_popup'
+}
+}).done(function(response, status, xhr){
+console.log('response:', response)
+})
+}
+window.getNotifications = function(request_type, cbk_bell_and_popup_message, cbk2){
+$.ajax({
+type: 'GET',
+url: '/user/notification',
+data: {
+action: 'load_site_notification',
+request_type: request_type,
+}
+}).done(function(res, status, xhr){
+if(res.status === 'ok') {
+cbk_bell_and_popup_message(res.data)
+if(cbk2){
+cbk2(res.data[0].id);
+}
+} else {
+UTILS_FUN.showToast(false, res.reason || 'Request failed.');
+}
+}).fail(function(){
+UTILS_FUN.showToast(false, 'Request failed.');
+})
+}
+window.postReadNotification = function(id, get_unread_count = true, cbk_message_table){
+$.ajax({
+type: 'POST',
+url: '/user/notification',
+data: {
+action: 'read_site_notification',
+site_notification_id: id,
+}
+}).done(function(res, status, xhr){
+if(res.status === 'ok') {
+if(get_unread_count) {
+getUnreadMessageNum();
+}
+if(cbk_message_table) {
+cbk_message_table('notification_page', renderNotificationTable);
+}
+} else {
+UTILS_FUN.showToast(false, res.reason || 'Request failed.');
+}
+}).fail(function(){
+UTILS_FUN.showToast(false, 'Request failed.');
+})
+}
+
+function renderPopupMessage(messages) {
+if(messages.length > 0) {
+$.each(messages, function(i){
+var message = messages[i];
+var next_id = i == messages.length - 1 ? 0 : messages[i+1].id;
+$('.page-wrapper').append(template('tpl-popup-message', {
+title: message.title,
+id: message.id,
+next_id: next_id,
+content: message.content,
+created_at: moment(new Date(message.created_at * 1000)).format('YYYY-MM-DD HH:mm:ss'),
+get_message_num: i == 0 ? true : false,
+}));
+$('#popup-message-modal-' + message.id ).find('.content').html(message.content);
+$('#popup-message-modal-' + message.id ).find('.modal-dialog').css('right', 50 + 10 *i + 'px').css('top', 80 + 10*i + 'px');
+$('#popup-message-modal-' + message.id ).css('z-index', 1050 + i*10 +'');
+})
+bindPopupMessageModal();
+$('#popup-message-modal-' + messages[0].id ).modal({
+backdrop: 'static'
+}).modal('show');
+}
+}
+function renderBellMessage(messages) {
+if(messages.length > 0) {
+$container = $('.dropdown-messages .messages-container').html('');
+$.each(messages, function(i){
+var message = messages[i];
+var message_class = message.has_read ? '' : 'unread';
+var message_time = timeFromNow(message.created_at);
+var html = '<a class="dropdown-item message-item ' + message_class + '">' +
+'<div class="title">' + '<span class="dot"></span>' + message.title + '</div>' +
+'<div class="content">' + '</div>' +
+'<div class="time">' + message_time + '</div>' +
+'</a>'
+$container.append(html)
+$container.find('.message-item:last-child .content').html(message.content);
+})
+}
+}
+function bindMessageBele() {
+$('.dropdown-messages').on('show.bs.dropdown', function () {
+$('.dropdown-messages').find('.unread-num').text($('.bell-unread-num').text() || 0);
+window.getNotifications('notification_bell', renderBellMessage);
+})
+}
+function bindPopupMessageModal() {
+$('.modal-popup-message').on('shown.bs.modal', function(e){
+var $modal = $(this);
+var next_id = Number($modal.data('next-id'));
+if(next_id > 0) {
+$('#popup-message-modal-' + next_id ).modal({
+backdrop: false
+}).modal('show');
+}
+})
+$('.modal-popup-message').on('hide.bs.modal', function(e){
+var $modal = $(this);
+var id = $modal.attr('id').replace(/popup-message-modal-/, "");;
+var get_message_num = $modal.data('get-message-num');
+if(get_message_num) {
+window.postReadNotification(id, true);
+} else {
+window.postReadNotification(id);
+}
+})
+}
+function getUnreadMessageNum(){
+$.ajax({
+type: 'GET',
+url: '/user/notification',
+data: {
+action: 'get_unread_count',
+}
+}).done(function(res, status, xhr){
+if(res.status === 'ok') {
+if(res.data.unread_count>0) {
+$('.bell-unread-num').text(res.data.unread_count).show();
+} else {
+$('.bell-unread-num').text(0).hide();
+}
+} else {
+UTILS_FUN.showToast(false, res.reason || 'Request failed.');
+}
+}).fail(function(){
+UTILS_FUN.showToast(false, 'Request failed.');
+})
+}
+function timeFromNow(timestamp){
+var now = new Date().valueOf() / 1000;
+var diff = now - timestamp;
+var second = 1;
+var minute = second * 60;
+var hour = minute * 60;
+var day = hour * 24;
+var dayDiff = Math.floor(diff / day);
+var hourDiff = Math.floor((diff % day) / hour);
+var minuteDiff = Math.floor((diff % hour) / minute);
+if (dayDiff >= 30 ) {
+return '1 month ago'
+}else if (dayDiff >=1) {
+var ret = ('{day} day{ds} {hour} hour{hs} ago').replace('{day}', dayDiff).replace('{hour}', hourDiff)
+ret = dayDiff == 1 ? ret.replace('{ds}', '') : ret.replace('{ds}', 's');
+ret = hourDiff == 1 ? ret.replace('{hs}', '') : ret.replace('{hs}', 's');
+return ret;
+}else if (hourDiff >=1) {
+var ret = ('{hour} hour{hs} ago').replace('{hour}', hourDiff);
+ret = hourDiff == 1 ? ret.replace('{hs}', '') : ret.replace('{hs}', 's');
+return ret;
+}else {
+var ret = ('{min} minute{ms} ago').replace('{min}', minuteDiff);
+ret = minuteDiff == 1 ? ret.replace('{ms}', '') : ret.replace('{ms}', 's');
+return ret;
+}
+}
+function halvingCountDown() {
+function addZero(i) {
+return i < 10 ? "0" + i : i;
+}
+var now_time = new Date().getTime() / 1000;
+var left_time = parseInt(HALVING_END_TIME - now_time);
+if(HALVING_END_TIME == 0 || left_time <=0) {
+$('.halving-timer-container-nav').hide();
+$('.halving-timer.day .num').text('00');
+$('.halving-timer.hour .num').text('00');
+$('.halving-timer.minute .num').text('00');
+$('.halving-timer.second .num').text('00');
+return;
+}
+var day = addZero(parseInt(left_time / 86400))
+var hour = addZero(parseInt((left_time - day*86400) / 3600));
+var minute = addZero(parseInt((left_time - day*86400) / 60 % 60));
+var second = addZero(parseInt((left_time - day*86400) % 60));
+$('.halving-timer-container-nav').show();
+$('.halving-timer.day .num').text(day);
+$('.halving-timer.hour .num').text(hour);
+$('.halving-timer.minute .num').text(minute);
+$('.halving-timer.second .num').text(second);
+if(day == '00') $('.halving-timer-container-nav .halving-timer.day').hide();
+setTimeout(halvingCountDown, 1000);
+}
+function bindBtcStakingInfoModel() {
+
+var is_show = true;
+
+if(is_show) {
+$('.btn-btc-staking-trigger').addClass('animate');
+} else {
+return;
+}
+var now = new Date().getTime();
+var change_time = new Date('2025-04-24T13:11:00Z').getTime();
+$('.btn-btc-staking-trigger').on('click', function(e){
+if(now > change_time) {
+location.href = '/staking/networks/babylon';
+} else {
+$('#btcStakingInfoModal').modal('show');
+}
+})
+}
+
+});
+</script>
+
+<script type="text/javascript">
+$(function() {
+$('#v1 .doc-container').load('/api_doc/api_v1_doc_en article');
+})
+</script>
+
+</html>
